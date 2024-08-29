@@ -3,7 +3,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "minecraft:camp1",
+        "location": "extradelight:camp1",
         "processors": {
           "processors": []
         },

@@ -3,7 +3,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "minecraft:table4",
+        "location": "extradelight:table4",
         "processors": {
           "processors": []
         },

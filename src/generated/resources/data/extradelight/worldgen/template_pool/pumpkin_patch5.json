@@ -3,7 +3,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "minecraft:pumpkin_patch5",
+        "location": "extradelight:pumpkin_patch5",
         "processors": {
           "processors": []
         },

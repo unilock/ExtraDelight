@@ -3,7 +3,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "minecraft:doll_circle4",
+        "location": "extradelight:doll_circle4",
         "processors": {
           "processors": []
         },

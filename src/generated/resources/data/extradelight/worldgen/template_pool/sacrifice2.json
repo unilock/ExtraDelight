@@ -3,7 +3,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "minecraft:sacrifice2",
+        "location": "extradelight:sacrifice2",
         "processors": {
           "processors": []
         },

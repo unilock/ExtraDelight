@@ -3,7 +3,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "minecraft:rail_stop",
+        "location": "extradelight:rail_stop",
         "processors": {
           "processors": []
         },

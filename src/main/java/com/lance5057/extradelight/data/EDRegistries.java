@@ -277,7 +277,7 @@ public class EDRegistries {
                             templatePools.getOrThrow(Pools.EMPTY),
                             List.of(
                                     Pair.of(
-                                            StructurePoolElement.single(id.getPath()),
+                                            StructurePoolElement.single(id.toString()),
                                             1
                                     )
                             ),
