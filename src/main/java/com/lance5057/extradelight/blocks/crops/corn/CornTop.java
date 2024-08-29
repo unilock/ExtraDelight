@@ -220,11 +220,10 @@ public class CornTop extends CropBlock implements Portal {
 	}
 
 	private static boolean isHalloween() {
-		return true;
-//		LocalDate localdate = LocalDate.now();
-//		int i = localdate.get(ChronoField.DAY_OF_MONTH);
-//		int j = localdate.get(ChronoField.MONTH_OF_YEAR);
-//		return j == 10 && i >= 1 || j == 11 && i <= 10;
+		LocalDate localdate = LocalDate.now();
+		int i = localdate.get(ChronoField.DAY_OF_MONTH);
+		int j = localdate.get(ChronoField.MONTH_OF_YEAR);
+		return j == 10 && i >= 1 || j == 11 && i <= 10;
 	}
 
 	protected ItemLike getBaseSeedId() {
