@@ -11,6 +11,7 @@ import com.lance5057.extradelight.blocks.RecipeFeastBlock;
 import com.lance5057.extradelight.blocks.TapBlock;
 import com.lance5057.extradelight.blocks.crops.GingerCrop;
 import com.lance5057.extradelight.blocks.crops.corn.CornBottom;
+import com.lance5057.extradelight.blocks.crops.corn.CornProperties;
 import com.lance5057.extradelight.blocks.crops.corn.CornTop;
 import com.lance5057.extradelight.workstations.mixingbowl.MixingBowlBlock;
 import com.lance5057.extradelight.workstations.mortar.MortarBlock;
@@ -533,7 +534,7 @@ public class BlockModels extends BlockStateProvider {
 	public void cornBlock(CornBottom bottom, CornTop top) {
 		getVariantBuilder(bottom).forAllStates(state -> {
 			int age = state.getValue(CornBottom.AGE);
-			boolean dry = state.getValue(CornBottom.DIMENSION);
+			boolean dry = state.getValue(CornProperties.DIMENSION);
 			String suffix = "_stage" + age;
 
 			if (dry)
@@ -551,7 +552,7 @@ public class BlockModels extends BlockStateProvider {
 
 		getVariantBuilder(top).forAllStates(state -> {
 			int age = state.getValue(CornTop.AGE);
-			boolean dry = state.getValue(CornTop.DIMENSION);
+			boolean dry = state.getValue(CornProperties.DIMENSION);
 			String suffix = "_stage" + (age + 4);
 			String suffix2 = "_stage" + age;
 

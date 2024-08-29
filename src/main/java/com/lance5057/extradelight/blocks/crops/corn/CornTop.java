@@ -38,7 +38,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class CornTop extends CropBlock implements Portal {
 	public static final int MAX_AGE = 3;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
-	public static final BooleanProperty DIMENSION = BooleanProperty.create("dimension");
 	public static final BooleanProperty DENSE = BooleanProperty.create("dense");
 	private static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[] { Block.box(4.0D, 0.0D, 4.0D, 12.0D, 8.0D, 12.0D),
 			Block.box(4.0D, 0.0D, 4.0D, 12.0D, 14.0D, 12.0D), Block.box(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D),
@@ -46,8 +45,8 @@ public class CornTop extends CropBlock implements Portal {
 
 	public CornTop(BlockBehaviour.Properties pProperties) {
 		super(pProperties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(this.getAgeProperty(), Integer.valueOf(0))
-				.setValue(DIMENSION, false).setValue(DENSE, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(this.getAgeProperty(), 0)
+				.setValue(CornProperties.DIMENSION, false).setValue(DENSE, false));
 	}
 
 	public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
@@ -185,7 +184,7 @@ public class CornTop extends CropBlock implements Portal {
 //	}
 
 	public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-		if (pState.getValue(CornTop.DIMENSION))
+		if (pState.getValue(CornProperties.DIMENSION))
 			return true;
 		return (pLevel.getRawBrightness(pPos, 0) >= 8 || pLevel.canSeeSky(pPos))
 				&& pLevel.getBlockState(pPos.below()).getBlock() == ExtraDelightBlocks.CORN_BOTTOM.get();
@@ -201,9 +200,8 @@ public class CornTop extends CropBlock implements Portal {
 					if (p.hasEffect(MobEffects.CONFUSION)) {
 						MobEffectInstance mei = p.getEffect(MobEffects.CONFUSION);
 						if (mei.getDuration() <= 3) {
-							if (pEntity.canUsePortal(false)) {
-								pEntity.setAsInsidePortal(this, pPos);
-							}
+							pEntity.setPortalCooldown(0);
+							pEntity.setAsInsidePortal(this, pPos);
 						}
 					} else {
 						if (pLevel.random.nextInt(100) == 0)
@@ -213,7 +211,7 @@ public class CornTop extends CropBlock implements Portal {
 			}
 
 		}
-		if (pState.getValue(CornTop.DIMENSION)) {
+		if (pState.getValue(CornProperties.DIMENSION)) {
 			if (pEntity.isSprinting())
 				pEntity.hurt(pEntity.damageSources().sweetBerryBush(), 1);
 			pEntity.makeStuckInBlock(pState, new Vec3(0.8D, 0.75D, 0.4D));
@@ -222,10 +220,11 @@ public class CornTop extends CropBlock implements Portal {
 	}
 
 	private static boolean isHalloween() {
-		LocalDate localdate = LocalDate.now();
-		int i = localdate.get(ChronoField.DAY_OF_MONTH);
-		int j = localdate.get(ChronoField.MONTH_OF_YEAR);
-		return j == 10 && i >= 1 || j == 11 && i <= 10;
+		return true;
+//		LocalDate localdate = LocalDate.now();
+//		int i = localdate.get(ChronoField.DAY_OF_MONTH);
+//		int j = localdate.get(ChronoField.MONTH_OF_YEAR);
+//		return j == 10 && i >= 1 || j == 11 && i <= 10;
 	}
 
 	protected ItemLike getBaseSeedId() {
@@ -239,8 +238,8 @@ public class CornTop extends CropBlock implements Portal {
 	/**
 	 * @return whether bonemeal can be used on this block
 	 */
-	public boolean isValidBonemealTarget(BlockGetter pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
-		return !this.isMaxAge(pState);
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+		return !this.isMaxAge(state);
 	}
 
 	public boolean isBonemealSuccess(Level pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
@@ -252,13 +251,13 @@ public class CornTop extends CropBlock implements Portal {
 	}
 
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-		pBuilder.add(AGE, DIMENSION, DENSE);
+		pBuilder.add(AGE, CornProperties.DIMENSION, DENSE);
 	}
 
 //	@Override
 //	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
 //			BlockHitResult hit) {
-//		if (!state.getValue(CornTop.DIMENSION))
+//		if (!state.getValue(CornProperties.DIMENSION))
 //			if (this.isMaxAge(state)) {
 //				level.setBlock(pos, this.getStateForAge(0), 2);
 //				ItemStack corn = new ItemStack(ExtraDelightItems.UNSHUCKED_CORN.get(), 4);
@@ -273,7 +272,7 @@ public class CornTop extends CropBlock implements Portal {
 
 	@Override
 	public void destroy(LevelAccessor pLevel, BlockPos pPos, BlockState pState) {
-		if (pState.getValue(DIMENSION)) {
+		if (pState.getValue(CornProperties.DIMENSION)) {
 			pLevel.setBlock(pPos, pState, 4);
 		}
 	}

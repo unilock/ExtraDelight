@@ -38,7 +38,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class CornBottom extends CropBlock {
 	public static final int MAX_AGE = 3;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
-	public static final BooleanProperty DIMENSION = BooleanProperty.create("dimension");
 
 	private static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[] { Block.box(4.0D, 0.0D, 4.0D, 12.0D, 4.0D, 12.0D),
 			Block.box(4.0D, 0.0D, 4.0D, 12.0D, 6.0D, 12.0D), Block.box(4.0D, 0.0D, 4.0D, 12.0D, 8.0D, 12.0D),
@@ -46,8 +45,8 @@ public class CornBottom extends CropBlock {
 
 	public CornBottom(BlockBehaviour.Properties pProperties) {
 		super(pProperties);
-		this.registerDefaultState(this.stateDefinition.any().setValue(this.getAgeProperty(), Integer.valueOf(0))
-				.setValue(DIMENSION, false));
+		this.registerDefaultState(this.stateDefinition.any().setValue(this.getAgeProperty(), 0)
+				.setValue(CornProperties.DIMENSION, false));
 	}
 
 	public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
@@ -183,7 +182,7 @@ public class CornBottom extends CropBlock {
 		if (pLevel instanceof WorldGenRegion) {
 			if (pLevel.getBlockState(pPos.below()).getBlock() == Blocks.GRASS_BLOCK)
 				return true;
-		} else if (pState.getValue(CornBottom.DIMENSION))
+		} else if (pState.getValue(CornProperties.DIMENSION))
 			return true;
 		return (pLevel.getRawBrightness(pPos, 0) >= 8 || pLevel.canSeeSky(pPos))
 				&& super.canSurvive(pState, pLevel, pPos);
@@ -194,7 +193,7 @@ public class CornBottom extends CropBlock {
 //				&& net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(pLevel, pEntity)) {
 //			pLevel.destroyBlock(pPos, true, pEntity);
 //		}
-//		if (pState.getValue(CornTop.DIMENSION)) {
+//		if (pState.getValue(CornProperties.DIMENSION)) {
 //			if (pEntity.isSprinting())
 //				pEntity.hurt(DamageSource.SWEET_BERRY_BUSH, 1);
 //			pEntity.makeStuckInBlock(pState, new Vec3((double) 0.8F, 0.75D, (double) 0.4F));
@@ -271,7 +270,7 @@ public class CornBottom extends CropBlock {
 	}
 
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-		pBuilder.add(AGE, DIMENSION);
+		pBuilder.add(AGE, CornProperties.DIMENSION);
 	}
 
 	@Override
@@ -287,9 +286,9 @@ public class CornBottom extends CropBlock {
 	@Nullable
 	public static void placeAt(LevelAccessor pLevel, BlockState pState, BlockPos pPos, int pFlags) {
 		pLevel.setBlock(pPos.above(),
-				ExtraDelightBlocks.CORN_TOP.get().defaultBlockState().setValue(AGE, 3).setValue(DIMENSION, true), 0);
+				ExtraDelightBlocks.CORN_TOP.get().defaultBlockState().setValue(AGE, 3).setValue(CornProperties.DIMENSION, true), 0);
 		pLevel.setBlock(pPos,
-				ExtraDelightBlocks.CORN_BOTTOM.get().defaultBlockState().setValue(AGE, 3).setValue(DIMENSION, true), 0);
+				ExtraDelightBlocks.CORN_BOTTOM.get().defaultBlockState().setValue(AGE, 3).setValue(CornProperties.DIMENSION, true), 0);
 
 	}
 
@@ -300,7 +299,7 @@ public class CornBottom extends CropBlock {
 
 	@Override
 	public void destroy(LevelAccessor pLevel, BlockPos pPos, BlockState pState) {
-		if (pState.getValue(DIMENSION)) {
+		if (pState.getValue(CornProperties.DIMENSION)) {
 			pLevel.setBlock(pPos, pState, 4);
 		}
 	}
