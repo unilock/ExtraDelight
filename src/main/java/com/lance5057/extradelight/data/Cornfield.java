@@ -95,18 +95,18 @@ public class Cornfield {
                                             .addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.ZOMBIE_VILLAGER, 5, 1, 1))
                                             .build())
                                     .specialEffects(new BiomeSpecialEffects.Builder()
-                                            .skyColor(0)
-                                            .fogColor(1248036)
-                                            .waterColor(2955861)
-                                            .waterFogColor(1248036)
-                                            .grassColorOverride(4798742)
-                                            .foliageColorOverride(4798742)
                                             .ambientMoodSound(new AmbientMoodSettings(
                                                     SoundEvents.AMBIENT_CAVE,
                                                     6000,
                                                     8,
                                                     2
                                             ))
+                                            .fogColor(1248036)
+                                            .foliageColorOverride(4798742)
+                                            .grassColorOverride(4798742)
+                                            .skyColor(0)
+                                            .waterColor(2955861)
+                                            .waterFogColor(1248036)
                                             .build())
                                     .temperature(5)
                                     .build()
