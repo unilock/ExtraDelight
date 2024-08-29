@@ -8,7 +8,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ViewportEvent;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = ExtraDelight.MOD_ID, value = Dist.CLIENT)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, modid = ExtraDelight.MOD_ID, value = Dist.CLIENT)
 public class ExtraDelightForgeClientEvents {
 	@SubscribeEvent
 	public static void onFogDensityEvent(ViewportEvent.RenderFog event) {
