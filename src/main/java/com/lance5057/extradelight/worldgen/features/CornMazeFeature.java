@@ -18,8 +18,8 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 
 public class CornMazeFeature extends Feature<SimpleBlockConfiguration> {
-	public CornMazeFeature(Codec<SimpleBlockConfiguration> p_66808_) {
-		super(p_66808_);
+	public CornMazeFeature() {
+		super(SimpleBlockConfiguration.CODEC);
 	}
 
 	List<Block> expected = Arrays.asList(ExtraDelightBlocks.CORN_BOTTOM.get(), Blocks.AIR);// ExtraDelightBlocks.CORN_BOTTOM.get();

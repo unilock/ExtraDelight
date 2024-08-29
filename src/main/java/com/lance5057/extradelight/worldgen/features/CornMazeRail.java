@@ -22,9 +22,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 
 public class CornMazeRail extends Feature<SimpleBlockConfiguration> {
 
-	public CornMazeRail(Codec<SimpleBlockConfiguration> pCodec) {
-		super(pCodec);
-		// TODO Auto-generated constructor stub
+	public CornMazeRail() {
+		super(SimpleBlockConfiguration.CODEC);
 	}
 
 	@Override

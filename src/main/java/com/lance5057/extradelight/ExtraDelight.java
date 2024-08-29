@@ -48,7 +48,6 @@ public class ExtraDelight {
 		ExtraDelightContainers.MENU_TYPES.register(modEventBus);
 		ExtraDelightLootModifiers.LOOT_MODIFIERS.register(modEventBus);
 		EDArmorMaterial.register(modEventBus);
-		ExtraDelightWorldGen.FEATURES.register(modEventBus);
 
 		ExtraDelightFeatures.FEATURES.register(modEventBus);
 //		ExtraDelightPlacedFeatures.register(modEventBus);

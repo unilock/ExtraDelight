@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import com.lance5057.extradelight.ExtraDelight;
+import com.lance5057.extradelight.ExtraDelightWorldGen;
 import com.lance5057.extradelight.worldgen.config.WildConfig;
 import com.lance5057.extradelight.worldgen.features.ExtraDelightFeatures;
-import com.lance5057.extradelight.worldgen.features.trees.ExtraDelightTreeFeatures;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -82,12 +82,7 @@ public class EDBiomeModifiers extends BaseDatapackRegistryProvider {
 				
 				// Cinnamon
 				
-				HolderSet.Direct<PlacedFeature> cinnamonTreeHolderSet = HolderSet.direct(Holder.direct(new PlacedFeature(
-						Holder.direct(new ConfiguredFeature<>(ExtraDelightFeatures.PATCH_CINNAMON_TREE.get(),
-								ExtraDelightTreeFeatures.createCinnamonTree().build())),
-						List.of(RarityFilter.onAverageOnceEvery(1), InSquarePlacement.spread(),
-								HeightmapPlacement.onHeightmap(Heightmap.Types.WORLD_SURFACE_WG),
-								BiomeFilter.biome()))));
+				HolderSet.Direct<PlacedFeature> cinnamonTreeHolderSet = HolderSet.direct(context.lookup(Registries.PLACED_FEATURE).getOrThrow(ExtraDelightWorldGen.PLACED_CINNAMON_TREE));
 
 				context.register(biomeModifier(ResourceLocation.fromNamespaceAndPath(ExtraDelight.MOD_ID, "cinnamon_tree")),
 						new BiomeModifiers.AddFeaturesBiomeModifier(jungle, cinnamonTreeHolderSet,

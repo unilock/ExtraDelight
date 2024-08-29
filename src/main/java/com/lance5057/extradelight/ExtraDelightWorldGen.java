@@ -50,4 +50,13 @@ public class ExtraDelightWorldGen {
 			Registries.PLACED_FEATURE,
 			ResourceLocation.fromNamespaceAndPath(ExtraDelight.MOD_ID, "rail_placer")
 	);
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_CINNAMON_TREE = ResourceKey.create(
+			Registries.CONFIGURED_FEATURE,
+			ResourceLocation.fromNamespaceAndPath(ExtraDelight.MOD_ID, "cinnamon")
+	);
+	public static final ResourceKey<PlacedFeature> PLACED_CINNAMON_TREE = ResourceKey.create(
+			Registries.PLACED_FEATURE,
+			ResourceLocation.fromNamespaceAndPath(ExtraDelight.MOD_ID, "cinnamon")
+	);
 }
