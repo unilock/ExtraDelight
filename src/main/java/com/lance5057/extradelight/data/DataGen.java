@@ -57,6 +57,7 @@ public class DataGen {
 						Set.of(ExtraDelight.MOD_ID)));
 
 		generator.addProvider(event.includeServer(), new EDBiomeModifiers(output, lookupProvider));
+		generator.addProvider(event.includeServer(), Cornfield.provider(output, lookupProvider));
 
 //		generator.addProvider(event.includeClient(), new PatchouliGen(generator, ExtraDelight.MOD_ID, "en_us"));
 	}
