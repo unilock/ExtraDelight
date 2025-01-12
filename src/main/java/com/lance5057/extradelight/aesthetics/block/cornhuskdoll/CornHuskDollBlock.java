@@ -1,10 +1,5 @@
 package com.lance5057.extradelight.aesthetics.block.cornhuskdoll;
 
-import javax.annotation.Nullable;
-
-import com.lance5057.extradelight.ExtraDelightBlockEntities;
-import com.lance5057.extradelight.ExtraDelightWorldGen;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -29,6 +24,8 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import javax.annotation.Nullable;
 
 public class CornHuskDollBlock extends Block implements SimpleWaterloggedBlock, EntityBlock {
 	protected static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D);
@@ -90,9 +87,9 @@ public class CornHuskDollBlock extends Block implements SimpleWaterloggedBlock, 
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState,
 			BlockEntityType<T> pBlockEntityType) {
-		if (pLevel.dimension() == ExtraDelightWorldGen.CORNFIELD)
-			return pBlockEntityType == ExtraDelightBlockEntities.CORN_HUSK_DOLL.get() ? CornHuskDollBlockEntity::tick
-					: null;
+//		if (pLevel.dimension() == ExtraDelightWorldGen.CORNFIELD)
+//			return pBlockEntityType == ExtraDelightBlockEntities.CORN_HUSK_DOLL.get() ? CornHuskDollBlockEntity::tick
+//					: null;
 		return null;
 	}
 

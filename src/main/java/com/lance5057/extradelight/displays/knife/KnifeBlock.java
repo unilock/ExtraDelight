@@ -42,7 +42,7 @@ public class KnifeBlock extends Block implements EntityBlock, SimpleWaterloggedB
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
 	public KnifeBlock() {
-		super(Properties.ofFullCopy(Blocks.DARK_OAK_WOOD).strength(0.5F).sound(SoundType.WOOD).noOcclusion());
+		super(Properties.copy(Blocks.DARK_OAK_WOOD).strength(0.5F).sound(SoundType.WOOD).noOcclusion());
 		this.registerDefaultState(
 				this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
 	}

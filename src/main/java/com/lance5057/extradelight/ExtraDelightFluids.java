@@ -2,17 +2,11 @@ package com.lance5057.extradelight;
 
 import com.lance5057.extradelight.fluids.BasicFluid;
 import com.lance5057.extradelight.fluids.FluidRegistration;
-
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.fluids.FluidType;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 public class ExtraDelightFluids {
 	public static final DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister

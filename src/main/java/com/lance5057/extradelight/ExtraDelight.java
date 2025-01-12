@@ -1,18 +1,18 @@
 package com.lance5057.extradelight;
 
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.lance5057.extradelight.aesthetics.AestheticBlocks;
 import com.lance5057.extradelight.network.NetworkHandler;
 import com.lance5057.extradelight.worldgen.features.ExtraDelightFeatures;
-
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModLoadingContext;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 
 @Mod(ExtraDelight.MOD_ID)
 public class ExtraDelight {
@@ -21,10 +21,10 @@ public class ExtraDelight {
 
 	public static Logger logger = LogManager.getLogger();
 
-	public ExtraDelight(IEventBus modEventBus) {
+	public ExtraDelight() {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ExtraDelightConfig.spec);
 
-//		final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+		final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 		modEventBus.addListener(this::setupClient);
 		modEventBus.addListener(this::setupCommon);
 		modEventBus.addListener(ExtraDelightCapabilities::registerCapabilities);
@@ -33,7 +33,7 @@ public class ExtraDelight {
 		AestheticBlocks.setup();
 		AestheticBlocks.BLOCKS.register(modEventBus);
 		AestheticBlocks.ITEMS.register(modEventBus);
-//
+
 		ExtraDelightBlocks.register(modEventBus);
 		ExtraDelightFluids.register(modEventBus);
 		ExtraDelightItems.ITEMS.register(modEventBus);
@@ -45,7 +45,7 @@ public class ExtraDelight {
 		ExtraDelightContainers.MENU_TYPES.register(modEventBus);
 //		ExtraDelightLoot.register(modEventBus);
 
-		ExtraDelightWorldGen.FEATURES.register(modEventBus);
+//		ExtraDelightWorldGen.FEATURES.register(modEventBus);
 
 		ExtraDelightFeatures.FEATURES.register(modEventBus);
 //		ExtraDelightPlacedFeatures.register(modEventBus);

@@ -43,7 +43,7 @@ public class CounterCabinetBlock extends BaseEntityBlock {
 	public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
 
 	public CounterCabinetBlock() {
-		this(Properties.ofFullCopy(Blocks.DARK_OAK_WOOD).noOcclusion());
+		this(Properties.copy(Blocks.DARK_OAK_WOOD).noOcclusion());
 	}
 
 	public CounterCabinetBlock(Properties properties) {

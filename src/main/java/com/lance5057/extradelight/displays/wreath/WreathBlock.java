@@ -46,7 +46,7 @@ public class WreathBlock extends Block implements EntityBlock, SimpleWaterlogged
 	protected static final VoxelShape SHAPE_S = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 4.0D);
 
 	public WreathBlock() {
-		super(Properties.ofFullCopy(Blocks.ACACIA_LEAVES).strength(2.5F, 6.0F).sound(SoundType.WOOD).noOcclusion()
+		super(Properties.copy(Blocks.ACACIA_LEAVES).strength(2.5F, 6.0F).sound(SoundType.WOOD).noOcclusion()
 				.noCollission().lightLevel((p_50763_) -> {
 					return p_50763_.getValue(BlockStateProperties.LIT) ? 8 : 0;
 				}));

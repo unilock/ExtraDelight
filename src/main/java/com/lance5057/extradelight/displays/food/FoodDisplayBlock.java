@@ -42,7 +42,7 @@ public class FoodDisplayBlock extends Block implements EntityBlock, SimpleWaterl
 	public FoodDisplayBlock() {
 		// strength used to be (0.5f, 6.0f)
 		// properties.of used to be Material.METAL for some reason, this makes it gray
-		super(Properties.ofFullCopy(Blocks.DARK_OAK_PLANKS).strength(2.5F, 6.0F).sound(SoundType.WOOD).noOcclusion());
+		super(Properties.copy(Blocks.DARK_OAK_PLANKS).strength(2.5F, 6.0F).sound(SoundType.WOOD).noOcclusion());
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH)
 				.setValue(WATERLOGGED, false).setValue(ENCASED, false));
 	}

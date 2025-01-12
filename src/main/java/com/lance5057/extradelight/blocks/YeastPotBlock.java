@@ -36,7 +36,7 @@ public class YeastPotBlock extends Block {
 	final Supplier<Item> output;
 
 	public YeastPotBlock(Supplier<Item> output, int speed) {
-		super(Properties.ofFullCopy(Blocks.STONE).strength(0.5F, 1.0F).sound(SoundType.STONE).randomTicks());
+		super(Properties.copy(Blocks.STONE).strength(0.5F, 1.0F).sound(SoundType.STONE).randomTicks());
 		this.registerDefaultState(this.stateDefinition.any().setValue(YEASTED, false));
 		this.speed = speed;
 		this.output = output;

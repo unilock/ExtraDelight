@@ -39,7 +39,7 @@ public class SinkCabinetBlock extends Block implements EntityBlock {
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
 	public SinkCabinetBlock() {
-		super(Block.Properties.ofFullCopy(Blocks.OAK_PLANKS).dynamicShape());
+		super(Block.Properties.copy(Blocks.OAK_PLANKS).dynamicShape());
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
 	}
 

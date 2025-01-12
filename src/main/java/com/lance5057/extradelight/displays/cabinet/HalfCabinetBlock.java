@@ -47,7 +47,7 @@ public class HalfCabinetBlock extends BaseEntityBlock {
 	public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
 
 	public HalfCabinetBlock() {
-		super(Block.Properties.ofFullCopy(Blocks.BARREL).noOcclusion()); //Copy barrel properties like a normal cabinet
+		super(Block.Properties.copy(Blocks.BARREL).noOcclusion()); //Copy barrel properties like a normal cabinet
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(OPEN, false));
 	}
 

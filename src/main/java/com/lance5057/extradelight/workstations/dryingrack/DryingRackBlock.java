@@ -27,7 +27,7 @@ public class DryingRackBlock extends Block implements EntityBlock {
 
 	public DryingRackBlock() {
 		// strength used to be (1, 1)
-		super(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.5F).sound(SoundType.WOOD)
+		super(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).strength(2.5F).sound(SoundType.WOOD)
 				.noOcclusion());
 		// TODO Auto-generated constructor stub
 	}

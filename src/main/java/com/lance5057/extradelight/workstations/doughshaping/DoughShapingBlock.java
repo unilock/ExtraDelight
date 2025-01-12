@@ -35,7 +35,7 @@ public class DoughShapingBlock extends Block {
 	protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D);
 
 	public DoughShapingBlock() {
-		super(Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(0.5F, 1.0F).sound(SoundType.WOOD).noOcclusion());
+		super(Properties.copy(Blocks.OAK_PLANKS).strength(0.5F, 1.0F).sound(SoundType.WOOD).noOcclusion());
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
 	}
 

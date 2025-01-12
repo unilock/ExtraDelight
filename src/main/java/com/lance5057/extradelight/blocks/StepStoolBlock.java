@@ -28,7 +28,7 @@ public class StepStoolBlock extends Block {
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
 	public StepStoolBlock() {
-		super(Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(0.5F).sound(SoundType.WOOD));
+		super(Properties.copy(Blocks.OAK_PLANKS).strength(0.5F).sound(SoundType.WOOD));
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
 	}
 

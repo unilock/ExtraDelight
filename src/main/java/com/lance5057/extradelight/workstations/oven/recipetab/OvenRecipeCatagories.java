@@ -1,16 +1,15 @@
 package com.lance5057.extradelight.workstations.oven.recipetab;
 
-import java.util.function.Supplier;
-
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableList;
 import com.lance5057.extradelight.ExtraDelightRecipes;
 import com.lance5057.extradelight.workstations.oven.recipes.OvenRecipe;
-
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.neoforged.neoforge.client.event.RegisterRecipeBookCategoriesEvent;
+import net.minecraftforge.client.event.RegisterRecipeBookCategoriesEvent;
+
+import java.util.function.Supplier;
 
 public class OvenRecipeCatagories {
 	public static final Supplier<RecipeBookCategories> OVEN_SEARCH = Suppliers
@@ -23,7 +22,7 @@ public class OvenRecipeCatagories {
 				ImmutableList.of(OVEN_SEARCH.get(), OVEN_MEALS.get()));
 		event.registerAggregateCategory(OVEN_SEARCH.get(), ImmutableList.of(OVEN_MEALS.get()));
 		event.registerRecipeCategoryFinder(ExtraDelightRecipes.OVEN.get(), recipe -> {
-			if (recipe.value() instanceof OvenRecipe OVENRecipe) {
+			if (recipe instanceof OvenRecipe OVENRecipe) {
 				OvenRecipeBookTab tab = OVENRecipe.getRecipeBookTab();
 				if (tab != null) {
 					return switch (tab) {

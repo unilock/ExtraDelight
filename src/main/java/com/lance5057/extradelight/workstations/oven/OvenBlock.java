@@ -1,12 +1,10 @@
 package com.lance5057.extradelight.workstations.oven;
 
-import javax.annotation.Nullable;
-
 import com.lance5057.extradelight.ExtraDelightBlockEntities;
 import com.lance5057.extradelight.state.OvenSupport;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -42,12 +40,15 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.network.NetworkHooks;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 import vectorwing.farmersdelight.common.tag.ModTags;
 import vectorwing.farmersdelight.common.utility.MathUtils;
+
+import javax.annotation.Nullable;
 
 @SuppressWarnings("deprecation")
 public class OvenBlock extends Block implements EntityBlock, SimpleWaterloggedBlock {
@@ -60,7 +61,7 @@ public class OvenBlock extends Block implements EntityBlock, SimpleWaterloggedBl
 			Block.box(0.0D, -1.0D, 0.0D, 16.0D, 0.0D, 16.0D));
 
 	public OvenBlock() {
-		super(Properties.ofFullCopy(Blocks.BRICKS).requiresCorrectToolForDrops().strength(3.5F, 6.0F)
+		super(Properties.copy(Blocks.BRICKS).requiresCorrectToolForDrops().strength(3.5F, 6.0F)
 				.sound(SoundType.STONE));
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH)
 				.setValue(SUPPORT, OvenSupport.NONE).setValue(WATERLOGGED, false));
@@ -72,7 +73,7 @@ public class OvenBlock extends Block implements EntityBlock, SimpleWaterloggedBl
 		if (!level.isClientSide) {
 			BlockEntity tileEntity = level.getBlockEntity(pos);
 			if (tileEntity instanceof OvenBlockEntity OvenEntity) {
-				player.openMenu(OvenEntity, pos);
+				NetworkHooks.openScreen((ServerPlayer) player, OvenEntity, pos);
 			}
 		}
 		return InteractionResult.SUCCESS;
