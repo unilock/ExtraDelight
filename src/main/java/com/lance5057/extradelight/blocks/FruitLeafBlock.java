@@ -28,6 +28,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.registries.RegistryObject;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 public class FruitLeafBlock extends Block {
@@ -38,9 +39,9 @@ public class FruitLeafBlock extends Block {
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 	public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
 
-	private final DeferredItem<Item> fruit;
+	private final RegistryObject<Item> fruit;
 
-	public FruitLeafBlock(Properties p_49795_, DeferredItem<Item> fruit) {
+	public FruitLeafBlock(Properties p_49795_, RegistryObject<Item> fruit) {
 		super(p_49795_);
 		this.registerDefaultState(this.stateDefinition.any().setValue(AGE, Integer.valueOf(0))
 				.setValue(DISTANCE, Integer.valueOf(7)).setValue(PERSISTENT, false));

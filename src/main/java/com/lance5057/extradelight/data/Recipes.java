@@ -1,7 +1,5 @@
 package com.lance5057.extradelight.data;
 
-import org.jetbrains.annotations.NotNull;
-
 import com.lance5057.extradelight.ExtraDelight;
 import com.lance5057.extradelight.ExtraDelightItems;
 import com.lance5057.extradelight.ExtraDelightTags;
@@ -14,11 +12,10 @@ import com.lance5057.extradelight.data.recipebuilders.OvenRecipeBuilder;
 import com.lance5057.extradelight.data.recipebuilders.ToolOnBlockBuilder;
 import com.lance5057.extradelight.workstations.doughshaping.recipes.DoughShapingRecipe;
 import com.lance5057.extradelight.workstations.oven.recipetab.OvenRecipeBookTab;
-
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
@@ -32,13 +29,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 import net.neoforged.neoforge.common.crafting.DifferenceIngredient;
+import org.jetbrains.annotations.NotNull;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.ForgeTags;
 import vectorwing.farmersdelight.data.builder.CookingPotRecipeBuilder;
 import vectorwing.farmersdelight.data.builder.CuttingBoardRecipeBuilder;
+
+import java.util.function.Consumer;
 
 public class Recipes extends RecipeProvider implements IConditionBuilder {
 	public Recipes(PackOutput generator) {
@@ -69,7 +69,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 //	}
 
 	@Override
-	protected void buildRecipes(RecipeOutput consumer) {
+	protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
 		mortarRecipes(consumer);
 		ovenRecipes(consumer);
 		knifeRecipes(consumer);
@@ -85,7 +85,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 		AestheticBlocks.Recipes(consumer);
 	}
 
-	private void toolOnBlockRecipes(RecipeOutput consumer) {
+	private void toolOnBlockRecipes(Consumer<FinishedRecipe> consumer) {
 		ToolOnBlockBuilder
 				.make(ExtraDelightItems.GINGERBREAD_COOKIE_BLOCK.get(), Ingredient.of(ExtraDelightTags.FROSTING_WHITE),
 						ExtraDelightItems.GINGERBREAD_BLOCK_WHITE.get())
@@ -179,7 +179,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 
 	}
 
-	private void feastRecipes(RecipeOutput consumer) {
+	private void feastRecipes(Consumer<FinishedRecipe> consumer) {
 		FeastRecipeBuilder
 				.feast(Ingredient.of(Items.BOWL), new ItemStack(ExtraDelightItems.MEAT_LOAF.get()),
 						ExtraDelightItems.MEAT_LOAF_FEAST.get())
@@ -444,7 +444,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 				.save(consumer, EDLoc("punch_feast"));
 	}
 
-	private void doughShapeRecipes(RecipeOutput consumer) {
+	private void doughShapeRecipes(Consumer<FinishedRecipe> consumer) {
 		doughshaping(Ingredient.of(ForgeTags.DOUGH), RecipeCategory.FOOD, ExtraDelightItems.MACARONI.get(), 1)
 				.unlockedBy("has_dough", has(ForgeTags.DOUGH)).save(consumer, EDLoc("macaroni_pasta"));
 		doughshaping(Ingredient.of(ForgeTags.DOUGH), RecipeCategory.FOOD, ExtraDelightItems.LASAGNA_NOODLES.get(), 1)
@@ -526,7 +526,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 		return new SingleItemRecipeBuilder(p_250503_, DoughShapingRecipe::new, p_248596_, p_250269_, 1);
 	}
 
-	private void dryingRackRecipes(RecipeOutput consumer) {
+	private void dryingRackRecipes(Consumer<FinishedRecipe> consumer) {
 		DryingRackRecipeBuilder.drying(Ingredient.of(Items.WET_SPONGE), new ItemStack(Items.SPONGE), 10, 1000)
 				.unlockedBy("has_sponge", has(Items.WET_SPONGE)).save(consumer, EDLoc("sponge"));
 		DryingRackRecipeBuilder.drying(Ingredient.of(Items.KELP), new ItemStack(Items.DRIED_KELP), 10, 1000)
@@ -563,7 +563,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 				.unlockedBy("has_husk", has(ExtraDelightTags.DRIED_FRUIT)).save(consumer, EDLoc("dried_fruit"));
 	}
 
-	private void cookingRecipes(RecipeOutput consumer) {
+	private void cookingRecipes(Consumer<FinishedRecipe> consumer) {
 		vanillaCooking(Ingredient.of(ExtraDelightItems.OMELETTE_MIX.get()), ExtraDelightItems.OMELETTE.get(), consumer,
 				"omelette_mix");
 
@@ -621,7 +621,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 				ExtraDelightItems.SUGAR_COOKIE_EMERALD.get(), consumer, "sugar_cookie_emerald");
 	}
 
-	private void vanillaCooking(Ingredient of, @NotNull Item item, RecipeOutput consumer, String name) {
+	private void vanillaCooking(Ingredient of, @NotNull Item item, Consumer<FinishedRecipe> consumer, String name) {
 		SimpleCookingRecipeBuilder.campfireCooking(of, RecipeCategory.FOOD, item, MEDIUM_EXP, CAMPFIRE_COOKING)
 				.unlockedBy(getName(), InventoryChangeTrigger.TriggerInstance.hasItems(item))
 				.save(consumer, EDLoc("campfire/" + name + "_fire"));
@@ -633,7 +633,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 				.save(consumer, EDLoc("smoking/" + name + "_smoke"));
 	}
 
-//	private void dynamicCooking(Ingredient of, @NotNull Item item, RecipeOutput consumer, String name) {
+//	private void dynamicCooking(Ingredient of, @NotNull Item item, Consumer<FinishedRecipe> consumer, String name) {
 //		DynamicNameSmeltingRecipeBuilder.campfireCooking(of, item, MEDIUM_EXP, NORMAL_COOKING)
 //				.unlockedBy(getName(), InventoryChangeTrigger.TriggerInstance.hasItems(item))
 //				.save(consumer, EDLoc("campfire/" + name + "_fire"));
@@ -645,7 +645,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 //				.save(consumer, EDLoc("smoking/" + name + "_smoke"));
 //	}
 
-	private void mixingbowlRecipes(RecipeOutput consumer) {
+	private void mixingbowlRecipes(Consumer<FinishedRecipe> consumer) {
 
 		mixing(new ItemStack(ModItems.WHEAT_DOUGH.get(), 3), LONG_GRIND, new ItemStack(Items.BOWL),
 				new Ingredient[] { Ingredient.of(ExtraDelightTags.FLOUR), Ingredient.of(ExtraDelightTags.FLOUR),
@@ -1112,7 +1112,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 	}
 
 	private void mixing(@NotNull ItemStack output, int grind, ItemStack container, Ingredient[] ingredients,
-			RecipeOutput consumer, String rc) {
+			Consumer<FinishedRecipe> consumer, String rc) {
 		MixingBowlRecipeBuilder b = MixingBowlRecipeBuilder.stir(output, grind, container);
 
 		for (Ingredient i : ingredients)
@@ -1131,7 +1131,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 //		p.build(consumer);
 	}
 
-	private void craftingRecipes(RecipeOutput consumer) {
+	private void craftingRecipes(Consumer<FinishedRecipe> consumer) {
 
 //		ShapedRecipeBuilder.shaped(ExtraDelightItems.CORN_COB_PIPE.get()).pattern("cs")
 //				.define('c', ExtraDelightItems.CORN_COB.get()).define('s', Items.STICK)
@@ -1830,7 +1830,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 				.save(consumer, EDLoc("cinnamon_stairs"));
 	}
 
-	private void bundleItem9(Ingredient in, Item b, Item out, RecipeOutput consumer, String name) {
+	private void bundleItem9(Ingredient in, Item b, Item out, Consumer<FinishedRecipe> consumer, String name) {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, b, 1).requires(in, 9).unlockedBy(getName(), has(out))
 				.save(consumer, EDLoc(name + "_to_block"));
 
@@ -1838,7 +1838,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 				.save(consumer, EDLoc(name + "_from_block"));
 	}
 
-	private void bundleItem4(Ingredient in, Item b, Item out, RecipeOutput consumer, String name) {
+	private void bundleItem4(Ingredient in, Item b, Item out, Consumer<FinishedRecipe> consumer, String name) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, b, 1).pattern("xx").pattern("xx").define('x', in)
 				.unlockedBy(getName(), has(out)).save(consumer, EDLoc(name + "_to_block"));
 
@@ -1846,7 +1846,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 				.save(consumer, EDLoc(name + "_from_block"));
 	}
 
-	private void potRecipes(RecipeOutput consumer) {
+	private void potRecipes(Consumer<FinishedRecipe> consumer) {
 
 //		pot(ExtraDelightItems.CHOCOLATE_CUSTARD.get(), 1, CookingRecipes.NORMAL_COOKING, 1.0F, Items.GLASS_BOTTLE,
 //				new Ingredient[] { Ingredient.of(Items.COCOA_BEANS), Ingredient.of(ForgeTags.MILK),
@@ -2413,7 +2413,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 
 	}
 
-	private void knifeRecipes(RecipeOutput consumer) {
+	private void knifeRecipes(Consumer<FinishedRecipe> consumer) {
 		CuttingBoardRecipeBuilder
 				.cuttingRecipe(Ingredient.of(Items.WHEAT), Ingredient.of(ForgeTags.TOOLS_KNIVES), Items.WHEAT_SEEDS, 2)
 				.addResult(ModItems.STRAW.get()).build(consumer, EDLoc("cutting/" + "wheat_seeds"));
@@ -2562,7 +2562,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 				.build(consumer, EDLoc("cutting/" + "milk_tart_knife"));
 	}
 
-	private void mortarRecipes(RecipeOutput consumer) {
+	private void mortarRecipes(Consumer<FinishedRecipe> consumer) {
 		// Dyes
 		MortarRecipeBuilder.grind(Ingredient.of(Items.LAPIS_LAZULI), new ItemStack(Items.BLUE_DYE, 2), STANDARD_GRIND)
 				.unlockedBy(getName(), InventoryChangeTrigger.TriggerInstance.hasItems(Items.LAPIS_LAZULI))
@@ -2675,7 +2675,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 				.save(consumer);
 	}
 
-	private void ovenRecipes(RecipeOutput consumer) {
+	private void ovenRecipes(Consumer<FinishedRecipe> consumer) {
 
 //		ConditionalRecipe.builder().addCondition(not(tagEmpty(ExtraDelightTags.HEART)))
 //				.addRecipe(r -> OvenRecipeBuilder
@@ -3396,11 +3396,11 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 				.unlockedByAnyIngredient(ModItems.PIE_CRUST.get()).build(consumer);
 	}
 
-	private void bulkBake(ItemLike mainResult, Ingredient in, RecipeOutput consumer, ItemLike pan, String name) {
+	private void bulkBake(ItemLike mainResult, Ingredient in, Consumer<FinishedRecipe> consumer, ItemLike pan, String name) {
 		bulkBake(mainResult, in, consumer, pan, name, 1);
 	}
 
-	private void bulkBake(ItemLike mainResult, Ingredient in, RecipeOutput consumer, ItemLike pan, String name,
+	private void bulkBake(ItemLike mainResult, Ingredient in, Consumer<FinishedRecipe> consumer, ItemLike pan, String name,
 			int count) {
 		for (int i = 1; i < 10; i++)
 			OvenRecipeBuilder
@@ -3410,7 +3410,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 	}
 
 	private void pot(ItemLike output, int count, int speed, float xp, ItemLike container, Ingredient[] itemsIn,
-			String rc, RecipeOutput consumer) {
+			String rc, Consumer<FinishedRecipe> consumer) {
 
 //		cookingPotRecipe(ItemLike mainResult, int count, int cookingTime, float experience)
 

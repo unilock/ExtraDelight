@@ -37,7 +37,7 @@ public class CornHuskDollBlock extends Block implements SimpleWaterloggedBlock, 
 	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
 
 	public CornHuskDollBlock() {
-		super(Block.Properties.ofFullCopy(Blocks.YELLOW_WOOL));
+		super(Block.Properties.copy(Blocks.YELLOW_WOOL));
 	}
 
 	public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {

@@ -1,11 +1,8 @@
 package com.lance5057.extradelight.aesthetics.block.cornhuskdoll;
 
-import javax.annotation.Nonnull;
-
 import com.lance5057.extradelight.ExtraDelightBlockEntities;
 import com.lance5057.extradelight.ExtraDelightWorldGen;
 import com.lance5057.extradelight.util.MathUtil;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
@@ -15,6 +12,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+
+import javax.annotation.Nonnull;
 
 public class CornHuskDollBlockEntity extends BlockEntity {
 

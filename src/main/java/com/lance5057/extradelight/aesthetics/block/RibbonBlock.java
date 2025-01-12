@@ -1,7 +1,5 @@
 package com.lance5057.extradelight.aesthetics.block;
 
-import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -29,8 +27,6 @@ public class RibbonBlock extends DirectionalBlock implements SimpleWaterloggedBl
 	protected static final VoxelShape SHAPE_N = Block.box(0.0D, 0.0D, 12.0D, 16.0D, 16.0D, 16.0D);
 	protected static final VoxelShape SHAPE_W = Block.box(12.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
 	protected static final VoxelShape SHAPE_S = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 4.0D);
-	
-	public static final MapCodec<RibbonBlock> CODEC = simpleCodec(RibbonBlock::new);
 
 	public RibbonBlock(BlockBehaviour.Properties properties) {
 		super(properties);
@@ -80,11 +76,5 @@ public class RibbonBlock extends DirectionalBlock implements SimpleWaterloggedBl
 			level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}
 		return state;
-	}
-
-	@Override
-	protected MapCodec<? extends DirectionalBlock> codec() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

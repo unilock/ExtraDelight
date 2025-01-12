@@ -1,12 +1,12 @@
 package com.lance5057.extradelight.aesthetics;
 
-import org.jetbrains.annotations.Nullable;
-
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+
+import javax.annotation.Nullable;
 
 public class HelmetBlockItem extends BlockItem {
 

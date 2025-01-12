@@ -1,21 +1,19 @@
 package com.lance5057.extradelight.fluids;
 
-import java.util.function.Consumer;
-
-import org.antlr.v4.runtime.misc.NotNull;
-import org.joml.Vector3f;
-
 import com.lance5057.extradelight.ExtraDelight;
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
-
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.neoforged.neoforge.fluids.FluidType;
+import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.minecraftforge.fluids.FluidType;
+import org.antlr.v4.runtime.misc.NotNull;
+import org.joml.Vector3f;
+
+import java.util.function.Consumer;
 
 public class BasicFluid extends FluidType {
 

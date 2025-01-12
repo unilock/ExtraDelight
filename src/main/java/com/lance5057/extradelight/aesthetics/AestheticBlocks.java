@@ -1,11 +1,5 @@
 package com.lance5057.extradelight.aesthetics;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Supplier;
-
-import org.apache.commons.lang3.text.WordUtils;
-
 import com.lance5057.extradelight.ExtraDelight;
 import com.lance5057.extradelight.ExtraDelightItems;
 import com.lance5057.extradelight.aesthetics.block.MoldingBlock;
@@ -19,12 +13,11 @@ import com.lance5057.extradelight.displays.cabinet.HalfCabinetBlock;
 import com.lance5057.extradelight.displays.knife.KnifeBlock;
 import com.lance5057.extradelight.displays.spice.SpiceRackBlock;
 import com.lance5057.extradelight.displays.wreath.WreathBlock;
-
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
@@ -39,18 +32,23 @@ import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
-import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
-import net.neoforged.neoforge.client.model.generators.MultiPartBlockStateBuilder;
-import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.data.LanguageProvider;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.LanguageProvider;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+import org.apache.commons.lang3.text.WordUtils;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.ForgeTags;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class AestheticBlocks {
 //	public static final CreativeModeTab AESTHETIC_TAB = new CreativeModeTab("extradelight.aesthetic") {
@@ -60,54 +58,54 @@ public class AestheticBlocks {
 //		}
 //	};
 
-	public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(ExtraDelight.MOD_ID);
-	public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ExtraDelight.MOD_ID);
+	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, ExtraDelight.MOD_ID);
+	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ExtraDelight.MOD_ID);
 
 	public static enum WOOD {
 		oak, dark_oak, spruce, birch, jungle, acacia, crimson, warped, mangrove, cinnamon, cherry, bamboo, fruit
 	};
 
-	public static final List<DeferredBlock<Block>> STEP_STOOLS = new ArrayList<DeferredBlock<Block>>();
-	public static final List<DeferredBlock<Block>> SPICE_RACKS = new ArrayList<DeferredBlock<Block>>();
-	public static final List<DeferredBlock<Block>> SPICE_RACKS_FULL = new ArrayList<DeferredBlock<Block>>();
-	public static final List<DeferredBlock<Block>> KNIFE_BLOCKS = new ArrayList<DeferredBlock<Block>>();
-	public static final List<DeferredBlock<Block>> CABINETS = new ArrayList<DeferredBlock<Block>>();
-	public static final List<DeferredBlock<Block>> COUNTER_CABINETS = new ArrayList<DeferredBlock<Block>>();
+	public static final List<RegistryObject<Block>> STEP_STOOLS = new ArrayList<RegistryObject<Block>>();
+	public static final List<RegistryObject<Block>> SPICE_RACKS = new ArrayList<RegistryObject<Block>>();
+	public static final List<RegistryObject<Block>> SPICE_RACKS_FULL = new ArrayList<RegistryObject<Block>>();
+	public static final List<RegistryObject<Block>> KNIFE_BLOCKS = new ArrayList<RegistryObject<Block>>();
+	public static final List<RegistryObject<Block>> CABINETS = new ArrayList<RegistryObject<Block>>();
+	public static final List<RegistryObject<Block>> COUNTER_CABINETS = new ArrayList<RegistryObject<Block>>();
 
-	public static final List<DeferredBlock<Block>> WALLPAPER_BLOCKS = new ArrayList<DeferredBlock<Block>>();
-	public static final List<DeferredBlock<Block>> MOLDED_WALLPAPER_BLOCKS = new ArrayList<DeferredBlock<Block>>();
+	public static final List<RegistryObject<Block>> WALLPAPER_BLOCKS = new ArrayList<RegistryObject<Block>>();
+	public static final List<RegistryObject<Block>> MOLDED_WALLPAPER_BLOCKS = new ArrayList<RegistryObject<Block>>();
 
-	public static final List<DeferredItem<Item>> STEP_STOOL_ITEMS = new ArrayList<DeferredItem<Item>>();
-	public static final List<DeferredItem<Item>> SPICE_RACKS_ITEMS = new ArrayList<DeferredItem<Item>>();
-	public static final List<DeferredItem<Item>> SPICE_RACKS_FULL_ITEMS = new ArrayList<DeferredItem<Item>>();
-	public static final List<DeferredItem<Item>> KNIFE_BLOCK_ITEMS = new ArrayList<DeferredItem<Item>>();
-	public static final List<DeferredItem<Item>> CABINET_ITEMS = new ArrayList<DeferredItem<Item>>();
-	public static final List<DeferredItem<Item>> COUNTER_CABINET_ITEMS = new ArrayList<DeferredItem<Item>>();
+	public static final List<RegistryObject<Item>> STEP_STOOL_ITEMS = new ArrayList<RegistryObject<Item>>();
+	public static final List<RegistryObject<Item>> SPICE_RACKS_ITEMS = new ArrayList<RegistryObject<Item>>();
+	public static final List<RegistryObject<Item>> SPICE_RACKS_FULL_ITEMS = new ArrayList<RegistryObject<Item>>();
+	public static final List<RegistryObject<Item>> KNIFE_BLOCK_ITEMS = new ArrayList<RegistryObject<Item>>();
+	public static final List<RegistryObject<Item>> CABINET_ITEMS = new ArrayList<RegistryObject<Item>>();
+	public static final List<RegistryObject<Item>> COUNTER_CABINET_ITEMS = new ArrayList<RegistryObject<Item>>();
 
-	public static final List<DeferredItem<Item>> WALLPAPER_ITEMS = new ArrayList<DeferredItem<Item>>();
-	public static final List<DeferredItem<Item>> MOLDED_WALLPAPER_ITEMS = new ArrayList<DeferredItem<Item>>();
+	public static final List<RegistryObject<Item>> WALLPAPER_ITEMS = new ArrayList<RegistryObject<Item>>();
+	public static final List<RegistryObject<Item>> MOLDED_WALLPAPER_ITEMS = new ArrayList<RegistryObject<Item>>();
 
-	public static final DeferredHolder<Block, CornHuskDollBlock> CORN_HUSK_DOLL = BLOCKS.register("corn_husk_doll",
+	public static final RegistryObject<CornHuskDollBlock> CORN_HUSK_DOLL = BLOCKS.register("corn_husk_doll",
 			() -> new CornHuskDollBlock());
-	public static final DeferredHolder<Item, BlockItem> CORN_HUSK_DOLL_ITEM = ITEMS.register("corn_husk_doll",
+	public static final RegistryObject<BlockItem> CORN_HUSK_DOLL_ITEM = ITEMS.register("corn_husk_doll",
 			() -> new BlockItem(CORN_HUSK_DOLL.get(), new Item.Properties()));
 
-	public static final List<DeferredBlock<Block>> DRIED_CORN_FENCE = new ArrayList<DeferredBlock<Block>>();
-	public static final List<DeferredItem<Item>> DRIED_CORN_FENCE_ITEMS = new ArrayList<DeferredItem<Item>>();
+	public static final List<RegistryObject<Block>> DRIED_CORN_FENCE = new ArrayList<RegistryObject<Block>>();
+	public static final List<RegistryObject<Item>> DRIED_CORN_FENCE_ITEMS = new ArrayList<RegistryObject<Item>>();
 
-	public static final List<DeferredBlock<Block>> WREATHS = new ArrayList<DeferredBlock<Block>>();
-	public static final List<DeferredItem<Item>> WREATH_ITEMS = new ArrayList<DeferredItem<Item>>();
+	public static final List<RegistryObject<Block>> WREATHS = new ArrayList<RegistryObject<Block>>();
+	public static final List<RegistryObject<Item>> WREATH_ITEMS = new ArrayList<RegistryObject<Item>>();
 
-	public static final List<DeferredBlock<Block>> BOWS = new ArrayList<DeferredBlock<Block>>();
-	public static final List<DeferredItem<Item>> BOW_ITEMS = new ArrayList<DeferredItem<Item>>();
+	public static final List<RegistryObject<Block>> BOWS = new ArrayList<RegistryObject<Block>>();
+	public static final List<RegistryObject<Item>> BOW_ITEMS = new ArrayList<RegistryObject<Item>>();
 
-	public static final List<DeferredBlock<Block>> SINKS = new ArrayList<DeferredBlock<Block>>();
-	public static final List<DeferredItem<Item>> SINK_ITEMS = new ArrayList<DeferredItem<Item>>();
+	public static final List<RegistryObject<Block>> SINKS = new ArrayList<RegistryObject<Block>>();
+	public static final List<RegistryObject<Item>> SINK_ITEMS = new ArrayList<RegistryObject<Item>>();
 
-	public static Block[] getRegistryListAsBlocks(List<DeferredBlock<Block>> blocks) {
+	public static Block[] getRegistryListAsBlocks(List<RegistryObject<Block>> blocks) {
 		List<Block> l = new ArrayList<Block>();
 
-		for (DeferredBlock<Block> b : blocks) {
+		for (RegistryObject<Block> b : blocks) {
 			l.add(b.get());
 		}
 		Block[] a = l.toArray(Block[]::new);
@@ -115,10 +113,10 @@ public class AestheticBlocks {
 		return a;
 	}
 
-	public static Item[] getRegistryListAsItems(List<DeferredItem<Item>> items) {
+	public static Item[] getRegistryListAsItems(List<RegistryObject<Item>> items) {
 		List<Item> l = new ArrayList<Item>();
 
-		for (DeferredItem<Item> b : items) {
+		for (RegistryObject<Item> b : items) {
 			l.add(b.get());
 		}
 		Item[] a = l.toArray(Item[]::new);
@@ -127,11 +125,11 @@ public class AestheticBlocks {
 	}
 
 	public static void registerMoldedWallpaper(String name, Supplier<? extends Block> block,
-			List<DeferredBlock<Block>> blocks, List<DeferredItem<Item>> items) {
+			List<RegistryObject<Block>> blocks, List<RegistryObject<Item>> items) {
 		for (WOOD w : WOOD.values()) {
 			for (DyeColor d : DyeColor.values()) {
-				DeferredBlock<Block> b = BLOCKS.register(w.toString() + "_molded_" + d.getName() + "_" + name, block);
-				DeferredItem<Item> t = ITEMS.register(w.toString() + "_molded_" + d.getName() + "_" + name,
+				RegistryObject<Block> b = BLOCKS.register(w.toString() + "_molded_" + d.getName() + "_" + name, block);
+				RegistryObject<Item> t = ITEMS.register(w.toString() + "_molded_" + d.getName() + "_" + name,
 						() -> new BlockItem(b.get(), new Item.Properties()));
 
 				blocks.add(b);
@@ -140,11 +138,11 @@ public class AestheticBlocks {
 		}
 	}
 
-	public static void registerAllWood(String name, Supplier<? extends Block> block, List<DeferredBlock<Block>> blocks,
-			List<DeferredItem<Item>> items) {
+	public static void registerAllWood(String name, Supplier<? extends Block> block, List<RegistryObject<Block>> blocks,
+			List<RegistryObject<Item>> items) {
 		for (WOOD w : WOOD.values()) {
-			DeferredBlock<Block> b = BLOCKS.register(w.toString() + "_" + name, block);
-			DeferredItem<Item> t = ITEMS.register(w.toString() + "_" + name,
+			RegistryObject<Block> b = BLOCKS.register(w.toString() + "_" + name, block);
+			RegistryObject<Item> t = ITEMS.register(w.toString() + "_" + name,
 					() -> new BlockItem(b.get(), new Item.Properties()));
 
 			blocks.add(b);
@@ -153,10 +151,10 @@ public class AestheticBlocks {
 	}
 
 	public static void registerAllColors(String name, Supplier<? extends Block> block,
-			List<DeferredBlock<Block>> blocks, List<DeferredItem<Item>> items) {
+			List<RegistryObject<Block>> blocks, List<RegistryObject<Item>> items) {
 		for (DyeColor w : DyeColor.values()) {
-			DeferredBlock<Block> b = BLOCKS.register(name + "_" + w.getName(), block);
-			DeferredItem<Item> t = ITEMS.register(name + "_" + w.toString(),
+			RegistryObject<Block> b = BLOCKS.register(name + "_" + w.getName(), block);
+			RegistryObject<Item> t = ITEMS.register(name + "_" + w.toString(),
 					() -> new BlockItem(b.get(), new Item.Properties()));
 
 			blocks.add(b);
@@ -165,10 +163,10 @@ public class AestheticBlocks {
 	}
 
 	public static void registerAllWoodHelm(String name, Supplier<? extends Block> block,
-			List<DeferredBlock<Block>> blocks, List<DeferredItem<Item>> items) {
+			List<RegistryObject<Block>> blocks, List<RegistryObject<Item>> items) {
 		for (WOOD w : WOOD.values()) {
-			DeferredBlock<Block> b = BLOCKS.register(w.toString() + "_" + name, block);
-			DeferredItem<Item> t = ITEMS.register(w.toString() + "_" + name,
+			RegistryObject<Block> b = BLOCKS.register(w.toString() + "_" + name, block);
+			RegistryObject<Item> t = ITEMS.register(w.toString() + "_" + name,
 					() -> new HelmetBlockItem(b.get(), new Item.Properties()));
 
 			blocks.add(b);
@@ -177,10 +175,10 @@ public class AestheticBlocks {
 	}
 
 	public static void registerAllColorsHelm(String name, Supplier<? extends Block> block,
-			List<DeferredBlock<Block>> blocks, List<DeferredItem<Item>> items) {
+			List<RegistryObject<Block>> blocks, List<RegistryObject<Item>> items) {
 		for (DyeColor w : DyeColor.values()) {
-			DeferredBlock<Block> b = BLOCKS.register(name + "_" + w.getName(), block);
-			DeferredItem<Item> t = ITEMS.register(name + "_" + w.toString(),
+			RegistryObject<Block> b = BLOCKS.register(name + "_" + w.getName(), block);
+			RegistryObject<Item> t = ITEMS.register(name + "_" + w.toString(),
 					() -> new HelmetBlockItem(b.get(), new Item.Properties()));
 
 			blocks.add(b);
@@ -198,47 +196,47 @@ public class AestheticBlocks {
 		registerAllWood("counter_cabinet", CounterCabinetBlock::new, COUNTER_CABINETS, COUNTER_CABINET_ITEMS);
 
 		registerAllColors("wallpaper",
-				() -> new Block(Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.GRASS)),
+				() -> new Block(Properties.copy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.GRASS)),
 				WALLPAPER_BLOCKS, WALLPAPER_ITEMS);
 		registerMoldedWallpaper("wallpaper",
 				() -> new MoldingBlock(
-						Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.GRASS)),
+						Properties.copy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.GRASS)),
 				MOLDED_WALLPAPER_BLOCKS, MOLDED_WALLPAPER_ITEMS);
 
-		registerAllWood("dried_corn_fence", () -> new FenceBlock(Block.Properties.ofFullCopy(Blocks.ACACIA_FENCE)),
+		registerAllWood("dried_corn_fence", () -> new FenceBlock(Block.Properties.copy(Blocks.ACACIA_FENCE)),
 				DRIED_CORN_FENCE, DRIED_CORN_FENCE_ITEMS);
 
 		registerAllWoodHelm("wreath", WreathBlock::new, WREATHS, WREATH_ITEMS);
 
 		registerAllColorsHelm("ribbon_bow",
-				() -> new RibbonBlock(Properties.ofFullCopy(Blocks.BLACK_WOOL).noOcclusion().noCollission()), BOWS,
+				() -> new RibbonBlock(Properties.copy(Blocks.BLACK_WOOL).noOcclusion().noCollission()), BOWS,
 				BOW_ITEMS);
 	}
 
 //	public static void loot(BlockLootSubProvider bl) {
-//		for (DeferredBlock<Block> b : STEP_STOOLS)
+//		for (RegistryObject<Block> b : STEP_STOOLS)
 //			bl..dropSelf(b.get());
-//		for (DeferredBlock<Block> b : SPICE_RACKS)
+//		for (RegistryObject<Block> b : SPICE_RACKS)
 //			bl.dropSelf(b.get());
-//		for (DeferredBlock<Block> b : SPICE_RACKS_FULL)
+//		for (RegistryObject<Block> b : SPICE_RACKS_FULL)
 //			bl.dropSelf(b.get());
-//		for (DeferredBlock<Block> b : KNIFE_BLOCKS)
+//		for (RegistryObject<Block> b : KNIFE_BLOCKS)
 //			bl.dropSelf(b.get());
-//		for (DeferredBlock<Block> b : CABINETS)
+//		for (RegistryObject<Block> b : CABINETS)
 //			bl.dropSelf(b.get());
-//		for (DeferredBlock<Block> b : DRIED_CORN_FENCE)
+//		for (RegistryObject<Block> b : DRIED_CORN_FENCE)
 //			bl.dropSelf(b.get());
 //
-//		for (DeferredBlock<Block> b : WALLPAPER_BLOCKS)
+//		for (RegistryObject<Block> b : WALLPAPER_BLOCKS)
 //			bl.dropSelf(b.get());
-//		for (DeferredBlock<Block> b : MOLDED_WALLPAPER_BLOCKS)
+//		for (RegistryObject<Block> b : MOLDED_WALLPAPER_BLOCKS)
 //			bl.dropSelf(b.get());
 //
 //		bl.dropSelf(CORN_HUSK_DOLL.get());
 //
-//		for (DeferredBlock<Block> b : WREATHS)
+//		for (RegistryObject<Block> b : WREATHS)
 //			bl.dropSelf(b.get());
-//		for (DeferredBlock<Block> b : BOWS)
+//		for (RegistryObject<Block> b : BOWS)
 //			bl.dropSelf(b.get());
 //	}
 
@@ -465,7 +463,7 @@ public class AestheticBlocks {
 
 	// oak, dark_oak, spruce, birch, jungle, acacia, crimson, warped, mangrove,
 	// cinnamon
-	public static void Recipes(RecipeOutput consumer) {
+	public static void Recipes(Consumer<FinishedRecipe> consumer) {
 		woodRecipe(consumer, Items.ACACIA_SLAB, Items.ACACIA_TRAPDOOR, Items.ACACIA_FENCE, Items.ACACIA_LEAVES,
 				WOOD.acacia);
 		woodRecipe(consumer, Items.BIRCH_SLAB, Items.BIRCH_TRAPDOOR, Items.BIRCH_FENCE, Items.BIRCH_LEAVES, WOOD.birch);
@@ -519,7 +517,7 @@ public class AestheticBlocks {
 				.save(consumer);
 	}
 
-	static void moldRecipe(RecipeOutput consumer, Item slab, WOOD name, int add) {
+	static void moldRecipe(Consumer<FinishedRecipe> consumer, Item slab, WOOD name, int add) {
 		for (int j = 0; j < 16; j++) {
 			DyeColor d = DyeColor.values()[j];
 			String n = d + "_" + name + "_wallpaper";
@@ -530,7 +528,7 @@ public class AestheticBlocks {
 		}
 	}
 
-	static void woodRecipe(RecipeOutput consumer, Item slab, Item trapdoor, Item fence, Item leaves, WOOD name) {
+	static void woodRecipe(Consumer<FinishedRecipe> consumer, Item slab, Item trapdoor, Item fence, Item leaves, WOOD name) {
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, STEP_STOOLS.get(name.ordinal()).get()).pattern(" w ")
 				.pattern("s s").pattern("s s").define('w', slab).define('s', Items.STICK)
@@ -567,7 +565,7 @@ public class AestheticBlocks {
 				.unlockedBy(name + "_wreath", InventoryChangeTrigger.TriggerInstance.hasItems(leaves)).save(consumer);
 	}
 
-	static void cabinetRecipes(RecipeOutput consumer) {
+	static void cabinetRecipes(Consumer<FinishedRecipe> consumer) {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, CABINETS.get(WOOD.mangrove.ordinal()).get())
 				.requires(ModItems.MANGROVE_CABINET.get())
 				.unlockedBy("mangrove_half_cabinet",

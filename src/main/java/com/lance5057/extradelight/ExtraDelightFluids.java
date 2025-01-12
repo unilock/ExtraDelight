@@ -5,6 +5,10 @@ import com.lance5057.extradelight.fluids.FluidRegistration;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fluids.FluidType;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -12,8 +16,8 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 public class ExtraDelightFluids {
 	public static final DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister
-			.create(NeoForgeRegistries.Keys.FLUID_TYPES, ExtraDelight.MOD_ID);
-	public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(BuiltInRegistries.FLUID,
+			.create(ForgeRegistries.Keys.FLUID_TYPES, ExtraDelight.MOD_ID);
+	public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS,
 			ExtraDelight.MOD_ID);
 
 	public static FluidRegistration OIL = new FluidRegistration("oil",
