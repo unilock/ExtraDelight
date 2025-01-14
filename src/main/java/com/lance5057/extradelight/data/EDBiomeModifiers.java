@@ -25,9 +25,9 @@ import net.minecraft.world.level.levelgen.placement.HeightmapPlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.RarityFilter;
-import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.world.BiomeModifiers;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.world.ForgeBiomeModifiers;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class EDBiomeModifiers extends BaseDatapackRegistryProvider {
 
@@ -36,7 +36,7 @@ public class EDBiomeModifiers extends BaseDatapackRegistryProvider {
 	}
 
 	private static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
-			.add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, context -> {
+			.add(ForgeRegistries.Keys.BIOME_MODIFIERS, context -> {
 				HolderSet.Named<Biome> plains = context.lookup(Registries.BIOME).getOrThrow(Tags.Biomes.IS_PLAINS);
 				HolderSet.Named<Biome> jungle = context.lookup(Registries.BIOME).getOrThrow(BiomeTags.IS_JUNGLE);
 
@@ -53,7 +53,7 @@ public class EDBiomeModifiers extends BaseDatapackRegistryProvider {
 								BiomeFilter.biome()))));
 
 				context.register(biomeModifier(new ResourceLocation(ExtraDelight.MOD_ID, "patch_wild_corn")),
-						new BiomeModifiers.AddFeaturesBiomeModifier(plains, wildCornHolderSet,
+						new ForgeBiomeModifiers.AddFeaturesBiomeModifier(plains, wildCornHolderSet,
 								GenerationStep.Decoration.VEGETAL_DECORATION));
 
 				// Coffee
@@ -65,7 +65,7 @@ public class EDBiomeModifiers extends BaseDatapackRegistryProvider {
 								BiomeFilter.biome()))));
 
 				context.register(biomeModifier(new ResourceLocation(ExtraDelight.MOD_ID, "patch_wild_coffee")),
-						new BiomeModifiers.AddFeaturesBiomeModifier(jungle, wildCoffeeHolderSet,
+						new ForgeBiomeModifiers.AddFeaturesBiomeModifier(jungle, wildCoffeeHolderSet,
 								GenerationStep.Decoration.VEGETAL_DECORATION));
 
 				// Ginger
@@ -77,7 +77,7 @@ public class EDBiomeModifiers extends BaseDatapackRegistryProvider {
 								BiomeFilter.biome()))));
 
 				context.register(biomeModifier(new ResourceLocation(ExtraDelight.MOD_ID, "patch_wild_ginger")),
-						new BiomeModifiers.AddFeaturesBiomeModifier(jungle, wildGingerHolderSet,
+						new ForgeBiomeModifiers.AddFeaturesBiomeModifier(jungle, wildGingerHolderSet,
 								GenerationStep.Decoration.VEGETAL_DECORATION));
 				
 				// Cinnamon
@@ -90,7 +90,7 @@ public class EDBiomeModifiers extends BaseDatapackRegistryProvider {
 								BiomeFilter.biome()))));
 
 				context.register(biomeModifier(new ResourceLocation(ExtraDelight.MOD_ID, "cinnamon_tree")),
-						new BiomeModifiers.AddFeaturesBiomeModifier(jungle, cinnamonTreeHolderSet,
+						new ForgeBiomeModifiers.AddFeaturesBiomeModifier(jungle, cinnamonTreeHolderSet,
 								GenerationStep.Decoration.VEGETAL_DECORATION));
 			});
 }

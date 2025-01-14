@@ -25,9 +25,9 @@ import net.minecraft.world.inventory.RecipeCraftingHolder;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.util.Lazy;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.minecraftforge.common.util.Lazy;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.ItemStackHandler;
 import vectorwing.farmersdelight.common.block.entity.SyncedBlockEntity;
 
 public class MortarBlockEntity extends SyncedBlockEntity implements RecipeCraftingHolder {

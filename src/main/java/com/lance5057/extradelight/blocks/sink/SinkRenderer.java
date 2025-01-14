@@ -27,9 +27,9 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.client.model.data.ModelData;
-import net.neoforged.neoforge.client.model.renderable.BakedModelRenderable.Context;
-import net.neoforged.neoforge.client.model.renderable.ITextureRenderTypeLookup;
+import net.minecraftforge.client.model.data.ModelData;
+import net.minecraftforge.client.model.renderable.BakedModelRenderable.Context;
+import net.minecraftforge.client.model.renderable.ITextureRenderTypeLookup;
 
 public class SinkRenderer implements BlockEntityRenderer<SinkCabinetBlockEntity> {
 

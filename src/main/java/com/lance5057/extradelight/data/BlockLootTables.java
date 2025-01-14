@@ -33,7 +33,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition.Builder;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.neoforged.neoforge.registries.DeferredBlock;
+import net.minecraftforge.registries.RegistryObject;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
 public class BlockLootTables extends BlockLootSubProvider {
@@ -50,33 +50,33 @@ public class BlockLootTables extends BlockLootSubProvider {
 
 	@Override
 	protected void generate() {
-		for (DeferredBlock<Block> b : AestheticBlocks.STEP_STOOLS)
+		for (RegistryObject<Block> b : AestheticBlocks.STEP_STOOLS)
 			dropSelf(b.get());
-		for (DeferredBlock<Block> b : AestheticBlocks.SPICE_RACKS)
+		for (RegistryObject<Block> b : AestheticBlocks.SPICE_RACKS)
 			dropSelf(b.get());
-		for (DeferredBlock<Block> b : AestheticBlocks.SPICE_RACKS_FULL)
+		for (RegistryObject<Block> b : AestheticBlocks.SPICE_RACKS_FULL)
 			dropSelf(b.get());
-		for (DeferredBlock<Block> b : AestheticBlocks.KNIFE_BLOCKS)
+		for (RegistryObject<Block> b : AestheticBlocks.KNIFE_BLOCKS)
 			dropSelf(b.get());
-		for (DeferredBlock<Block> b : AestheticBlocks.CABINETS)
+		for (RegistryObject<Block> b : AestheticBlocks.CABINETS)
 			dropSelf(b.get());
-		for (DeferredBlock<Block> b : AestheticBlocks.DRIED_CORN_FENCE)
+		for (RegistryObject<Block> b : AestheticBlocks.DRIED_CORN_FENCE)
 			dropSelf(b.get());
 
-		for (DeferredBlock<Block> b : AestheticBlocks.WALLPAPER_BLOCKS)
+		for (RegistryObject<Block> b : AestheticBlocks.WALLPAPER_BLOCKS)
 			dropSelf(b.get());
-		for (DeferredBlock<Block> b : AestheticBlocks.MOLDED_WALLPAPER_BLOCKS)
+		for (RegistryObject<Block> b : AestheticBlocks.MOLDED_WALLPAPER_BLOCKS)
 			dropSelf(b.get());
-		for (DeferredBlock<Block> b : AestheticBlocks.SINKS)
+		for (RegistryObject<Block> b : AestheticBlocks.SINKS)
 			dropSelf(b.get());
-		for (DeferredBlock<Block> b : AestheticBlocks.COUNTER_CABINETS)
+		for (RegistryObject<Block> b : AestheticBlocks.COUNTER_CABINETS)
 			dropSelf(b.get());
 
 		dropSelf(AestheticBlocks.CORN_HUSK_DOLL.get());
 
-		for (DeferredBlock<Block> b : AestheticBlocks.WREATHS)
+		for (RegistryObject<Block> b : AestheticBlocks.WREATHS)
 			dropSelf(b.get());
-		for (DeferredBlock<Block> b : AestheticBlocks.BOWS)
+		for (RegistryObject<Block> b : AestheticBlocks.BOWS)
 			dropSelf(b.get());
 
 		this.dropSelf(ExtraDelightBlocks.OVEN.get());

@@ -9,10 +9,10 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.DeferredItem;
+import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryObject;
 
 public class ItemModels extends ItemModelProvider {
 
@@ -834,39 +834,39 @@ public class ItemModels extends ItemModelProvider {
 		AestheticBlocks.itemModel(this);
 	}
 
-	public void forItem(DeferredItem<? extends Item> item, String name) {
+	public void forItem(RegistryObject<? extends Item> item, String name) {
 		this.singleTexture(item.getId().getPath(), mcLoc("item/handheld"), "layer0", modLoc("item/" + name));
 	}
 
-	public void forItemModel(DeferredItem<? extends Item> item, String path) {
+	public void forItemModel(RegistryObject<? extends Item> item, String path) {
 		getBuilder(item.getId().getPath())
 				.parent(new ModelFile.UncheckedModelFile(new ResourceLocation(ExtraDelight.MOD_ID, path)));
 	}
 
-	public void forBlockItem(DeferredItem<? extends BlockItem> item, String name) {
+	public void forBlockItem(RegistryObject<? extends BlockItem> item, String name) {
 		getBuilder(item.getId().getPath())
 				.parent(new ModelFile.UncheckedModelFile(new ResourceLocation(ExtraDelight.MOD_ID,
 						"block/" + BuiltInRegistries.BLOCK.getKey(item.get().getBlock()).getPath())));
 	}
 
-	public void forBlockItem(DeferredItem<? extends BlockItem> item, ResourceLocation modelLocation) {
+	public void forBlockItem(RegistryObject<? extends BlockItem> item, ResourceLocation modelLocation) {
 		getBuilder(item.getId().getPath()).parent(new ModelFile.UncheckedModelFile(modelLocation));
 	}
 
-	public void forBlockItem(DeferredItem<? extends BlockItem> item, ResourceLocation modelLocation, String key,
+	public void forBlockItem(RegistryObject<? extends BlockItem> item, ResourceLocation modelLocation, String key,
 			ResourceLocation texture) {
 		getBuilder(item.getId().getPath()).parent(new ModelFile.UncheckedModelFile(modelLocation)).texture(key,
 				texture);
 	}
 
-	public void jellyBlock(DeferredItem<? extends BlockItem> item, String color) {
+	public void jellyBlock(RegistryObject<? extends BlockItem> item, String color) {
 		ModelFile jellyModel = new ModelFile.UncheckedModelFile(modLoc("block/jelly_block_stage0"));
 
 		getBuilder(item.getId().getPath()).parent(jellyModel).texture("1",
 				new ResourceLocation(ExtraDelight.MOD_ID, "block/jelly_" + color));
 	}
 
-	private void forBlockItemWithParent(DeferredItem<? extends BlockItem> item) {
+	private void forBlockItemWithParent(RegistryObject<? extends BlockItem> item) {
 		singleTexture(item.getId().getPath(), mcLoc("item/generated"), "layer0",
 				modLoc("block/" + item.getId().getPath()));
 	}

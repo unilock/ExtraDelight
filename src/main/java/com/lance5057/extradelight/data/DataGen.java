@@ -21,10 +21,10 @@ import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.registries.RegistriesDatapackGenerator;
 import net.minecraft.resources.RegistryDataLoader;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
 import vectorwing.farmersdelight.data.Advancements;
 
 @SuppressWarnings("unused")
