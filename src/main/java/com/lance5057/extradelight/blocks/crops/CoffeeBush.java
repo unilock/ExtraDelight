@@ -30,16 +30,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class CoffeeBush extends BushBlock implements BonemealableBlock {
-	public static final MapCodec<CoffeeBush> CODEC = simpleCodec(CoffeeBush::new);
 	public static final int MAX_AGE = 3;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
 	private static final VoxelShape SAPLING_SHAPE = Block.box(3.0, 0.0, 3.0, 13.0, 8.0, 13.0);
 	private static final VoxelShape MID_GROWTH_SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 16.0, 15.0);
-
-	@Override
-	public MapCodec<CoffeeBush> codec() {
-		return CODEC;
-	}
 
 	public CoffeeBush(BlockBehaviour.Properties p_57249_) {
 		super(p_57249_);
@@ -47,7 +41,7 @@ public class CoffeeBush extends BushBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(LevelReader p_304655_, BlockPos p_57257_, BlockState p_57258_) {
+	public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
 		return new ItemStack(ExtraDelightItems.COFFEE_CHERRIES.get());
 	}
 
@@ -106,8 +100,8 @@ public class CoffeeBush extends BushBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader p_256056_, BlockPos p_57261_, BlockState p_57262_) {
-		return p_57262_.getValue(AGE) < 3;
+	public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState, boolean b) {
+		return blockState.getValue(AGE) < 3;
 	}
 
 	@Override

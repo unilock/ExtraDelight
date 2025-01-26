@@ -1,6 +1,6 @@
 package com.lance5057.extradelight.capabilities;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -15,7 +15,7 @@ public class WellFluidCapability implements IFluidHandler, IFluidTank {
 		this.fluid = fluid;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public FluidStack getFluid() {
 		return new FluidStack(fluid, getFluidAmount());
@@ -41,7 +41,7 @@ public class WellFluidCapability implements IFluidHandler, IFluidTank {
 		return 1;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public FluidStack getFluidInTank(int tank) {
 		return getFluid();
@@ -53,7 +53,7 @@ public class WellFluidCapability implements IFluidHandler, IFluidTank {
 	}
 
 	@Override
-	public boolean isFluidValid(int tank, @NotNull FluidStack stack) {
+	public boolean isFluidValid(int tank, @Nonnull FluidStack stack) {
 		return false;
 	}
 
@@ -62,7 +62,7 @@ public class WellFluidCapability implements IFluidHandler, IFluidTank {
 		return resource.getAmount();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public FluidStack drain(FluidStack resource, FluidAction action) {
 		if (resource.isEmpty() || !resource.isFluidEqual(resource)) {
@@ -71,7 +71,7 @@ public class WellFluidCapability implements IFluidHandler, IFluidTank {
 		return drain(resource.getAmount(), action);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public FluidStack drain(int maxDrain, FluidAction action) {
 		return new FluidStack(fluid, maxDrain);

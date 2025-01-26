@@ -2,8 +2,6 @@ package com.lance5057.extradelight.displays.knife;
 
 import javax.annotation.Nonnull;
 
-import org.jetbrains.annotations.NotNull;
-
 import com.lance5057.extradelight.ExtraDelightBlockEntities;
 
 import net.minecraft.core.BlockPos;
@@ -49,7 +47,7 @@ public class KnifeBlockEntity extends BlockEntity {
 			}
 
 			@Override
-			public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+			public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
 				return stack.is(ModTags.KNIVES);
 			}
 		};

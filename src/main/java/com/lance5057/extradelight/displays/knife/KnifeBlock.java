@@ -6,6 +6,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -35,6 +36,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.network.NetworkHooks;
 
 public class KnifeBlock extends Block implements EntityBlock, SimpleWaterloggedBlock {
 	protected static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 8.0D, 12.0D);
@@ -65,7 +67,7 @@ public class KnifeBlock extends Block implements EntityBlock, SimpleWaterloggedB
 						return new KnifeBlockMenu(windowId, playerInventory, ent);
 					}
 				};
-				player.openMenu(containerProvider, pos);
+				NetworkHooks.openScreen((ServerPlayer) player, containerProvider, pos);
 			}
 		}
 		return InteractionResult.SUCCESS;
@@ -129,11 +131,5 @@ public class KnifeBlock extends Block implements EntityBlock, SimpleWaterloggedB
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
 		return ExtraDelightBlockEntities.KNIFE_BLOCK.get().create(pPos, pState);
-	}
-
-	@Override
-	protected MapCodec<? extends BaseEntityBlock> codec() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

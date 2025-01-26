@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.BlockItem;
@@ -18,14 +19,14 @@ public class FeastRecipe extends SingleItemRecipe {
 
 	protected final BlockItem feast;
 
-	public FeastRecipe(String pGroup, BlockItem feast, Ingredient pIngredient, ItemStack pResult) {
-		super(ExtraDelightRecipes.FEAST.get(), ExtraDelightRecipes.FEAST_SERIALIZER.get(), pGroup, pIngredient,
+	public FeastRecipe(ResourceLocation id, String pGroup, BlockItem feast, Ingredient pIngredient, ItemStack pResult) {
+		super(ExtraDelightRecipes.FEAST.get(), ExtraDelightRecipes.FEAST_SERIALIZER.get(), id, pGroup, pIngredient,
 				pResult);
 		this.feast = feast;
 	}
 	
-	public FeastRecipe(String pGroup, ItemStack feast, Ingredient pIngredient, ItemStack pResult) {
-		super(ExtraDelightRecipes.FEAST.get(), ExtraDelightRecipes.FEAST_SERIALIZER.get(), pGroup, pIngredient,
+	public FeastRecipe(ResourceLocation id, String pGroup, ItemStack feast, Ingredient pIngredient, ItemStack pResult) {
+		super(ExtraDelightRecipes.FEAST.get(), ExtraDelightRecipes.FEAST_SERIALIZER.get(), id, pGroup, pIngredient,
 				pResult);
 		this.feast = (BlockItem) feast.getItem();
 	}

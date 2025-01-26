@@ -25,7 +25,7 @@ public class ItemUtils {
 			ItemEntity itementity = p.drop(itemstack, false);
 			if (itementity != null) {
 				itementity.setNoPickUpDelay();
-				itementity.setThrower(p);
+				itementity.setThrower(p.getUUID());
 			}
 		}
 	}

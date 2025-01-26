@@ -149,10 +149,4 @@ public class HalfCabinetBlock extends BaseEntityBlock {
 	public BlockState mirror(BlockState state, Mirror mirrorIn) {
 		return state.rotate(mirrorIn.getRotation(state.getValue(FACING)));
 	}
-
-	@Override
-	protected MapCodec<? extends BaseEntityBlock> codec() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

@@ -5,6 +5,7 @@ import com.lance5057.extradelight.ExtraDelightBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -33,6 +34,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.network.NetworkHooks;
 
 public class SpiceRackBlock extends Block implements EntityBlock, SimpleWaterloggedBlock {
 	protected static final VoxelShape SHAPE_E = Block.box(0.0D, 0.0D, 0.0D, 6.0D, 16.0D, 16.0D);
@@ -79,7 +81,7 @@ public class SpiceRackBlock extends Block implements EntityBlock, SimpleWaterlog
 					}
 				};
 
-				player.openMenu(containerProvider, pos);
+				NetworkHooks.openScreen((ServerPlayer) player, containerProvider, pos);
 			}
 		}
 		return InteractionResult.SUCCESS;

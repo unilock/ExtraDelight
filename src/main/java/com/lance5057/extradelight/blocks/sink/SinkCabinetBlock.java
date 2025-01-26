@@ -5,6 +5,7 @@ import com.lance5057.extradelight.ExtraDelightBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -33,6 +34,7 @@ import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.minecraftforge.network.NetworkHooks;
 
 public class SinkCabinetBlock extends Block implements EntityBlock {
 	protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 15.0D, 16.0D);
@@ -126,7 +128,7 @@ public class SinkCabinetBlock extends Block implements EntityBlock {
 							return new SinkCabinetMenu(windowId, playerInventory, be);
 						}
 					};
-					pPlayer.openMenu(containerProvider, buf -> buf.writeBlockPos(pPos));
+					NetworkHooks.openScreen((ServerPlayer) pPlayer, containerProvider, pPos);
 					return InteractionResult.SUCCESS;
 				}
 			}

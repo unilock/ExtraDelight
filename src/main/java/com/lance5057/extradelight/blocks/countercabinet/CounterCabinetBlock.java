@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
@@ -34,11 +35,10 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.network.NetworkHooks;
 
 @SuppressWarnings("deprecation")
 public class CounterCabinetBlock extends BaseEntityBlock {
-	public static final MapCodec<CounterCabinetBlock> CODEC = simpleCodec(CounterCabinetBlock::new);
-
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
 
@@ -49,11 +49,6 @@ public class CounterCabinetBlock extends BaseEntityBlock {
 	public CounterCabinetBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(OPEN, false));
-	}
-
-	@Override
-	protected MapCodec<? extends BaseEntityBlock> codec() {
-		return CODEC;
 	}
 
 	@Override
@@ -74,7 +69,7 @@ public class CounterCabinetBlock extends BaseEntityBlock {
 						return new CounterCabinetMenu(windowId, playerInventory, be);
 					}
 				};
-				player.openMenu(containerProvider, buf -> buf.writeBlockPos(pos));
+				NetworkHooks.openScreen((ServerPlayer) player, containerProvider, pos);
 				return InteractionResult.SUCCESS;
 			}
 		}

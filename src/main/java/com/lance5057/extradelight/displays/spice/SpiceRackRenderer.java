@@ -1,6 +1,6 @@
 package com.lance5057.extradelight.displays.spice;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.joml.Quaternionf;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -48,7 +48,7 @@ public class SpiceRackRenderer implements BlockEntityRenderer<SpiceRackEntity> {
 
 	private void renderItem(int slot, SpiceRackEntity pBlockEntity, PoseStack pPoseStack,
 			MultiBufferSource pBufferSource, int pPackedLight, int pPackedOverlay, ItemRenderer itemRenderer,
-			@NotNull IItemHandler r, Direction dir, float x, float y, float z, float rx, float ry, float rz) {
+			@Nonnull IItemHandler r, Direction dir, float x, float y, float z, float rx, float ry, float rz) {
 		pPoseStack.pushPose();
 		ItemStack item = r.getStackInSlot(slot);
 

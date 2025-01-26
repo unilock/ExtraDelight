@@ -5,6 +5,7 @@ import com.lance5057.extradelight.ExtraDelightBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -34,6 +35,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.network.NetworkHooks;
 
 public class WreathBlock extends Block implements EntityBlock, SimpleWaterloggedBlock {
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -93,7 +95,7 @@ public class WreathBlock extends Block implements EntityBlock, SimpleWaterlogged
 						}
 					};
 
-					player.openMenu(containerProvider, pos);
+					NetworkHooks.openScreen((ServerPlayer) player, containerProvider, pos);
 				}
 			}
 		}

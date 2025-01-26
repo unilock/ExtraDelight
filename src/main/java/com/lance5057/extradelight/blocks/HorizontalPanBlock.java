@@ -14,7 +14,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class HorizontalPanBlock extends HorizontalDirectionalBlock {
-	public static final MapCodec<HorizontalPanBlock> CODEC = simpleCodec(HorizontalPanBlock::new);
 	protected VoxelShape SHAPE = Block.box(4.0D, 0.0D, 0.0D, 12.0D, 8.0D, 16.0D);
 	protected VoxelShape SHAPE2 = Block.box(0.0D, 0.0D, 4.0D, 16.0D, 8.0D, 12.0D);
 
@@ -37,11 +36,6 @@ public class HorizontalPanBlock extends HorizontalDirectionalBlock {
 		if (d == Direction.EAST || d == Direction.WEST)
 			return SHAPE;
 		return SHAPE2;
-	}
-
-	@Override
-	protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-		return CODEC;
 	}
 
 	@Override

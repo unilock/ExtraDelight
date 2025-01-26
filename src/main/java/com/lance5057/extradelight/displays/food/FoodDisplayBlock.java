@@ -6,6 +6,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -33,6 +34,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.network.NetworkHooks;
 
 public class FoodDisplayBlock extends Block implements EntityBlock, SimpleWaterloggedBlock {
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -74,7 +76,7 @@ public class FoodDisplayBlock extends Block implements EntityBlock, SimpleWaterl
 						return new FoodDisplayMenu(windowId, playerInventory, ent);
 					}
 				};
-				player.openMenu(containerProvider, buf -> buf.writeBlockPos(pos));
+				NetworkHooks.openScreen((ServerPlayer) player, containerProvider, pos);
 			}
 		}
 		return InteractionResult.SUCCESS;
@@ -134,11 +136,5 @@ public class FoodDisplayBlock extends Block implements EntityBlock, SimpleWaterl
 
 			super.onRemove(state, level, pos, newState, isMoving);
 		}
-	}
-
-	@Override
-	protected MapCodec<? extends BaseEntityBlock> codec() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

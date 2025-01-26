@@ -6,6 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -18,7 +19,12 @@ import net.minecraft.world.level.block.Block;
 
 public class ToolOnBlockRecipe implements Recipe<Container> {
 
+	protected final ResourceLocation id;
 	protected final Ingredient tool;
+	
+	public ResourceLocation getId() {
+		return id;
+	}
 
 	public Ingredient getTool() {
 		return tool;
@@ -35,13 +41,15 @@ public class ToolOnBlockRecipe implements Recipe<Container> {
 	protected final BlockItem in;
 	protected final BlockItem out;
 
-	public ToolOnBlockRecipe(BlockItem in, Ingredient tool, BlockItem out) {
+	public ToolOnBlockRecipe(ResourceLocation id, BlockItem in, Ingredient tool, BlockItem out) {
+		this.id = id;
 		this.tool = tool;
 		this.in = in;
 		this.out = out;
 	}
 
-	public ToolOnBlockRecipe(ItemStack in, Ingredient tool, ItemStack out) {
+	public ToolOnBlockRecipe(ResourceLocation id, ItemStack in, Ingredient tool, ItemStack out) {
+		this.id = id;
 		this.tool = tool;
 		this.in = (BlockItem) in.getItem();
 		this.out = (BlockItem) out.getItem();

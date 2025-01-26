@@ -6,6 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -16,9 +17,9 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 
 public class DynamicNameCampfireRecipe extends CampfireCookingRecipe {
 
-	public DynamicNameCampfireRecipe(String p_250200_, CookingBookCategory p_251114_, Ingredient p_250340_,
+	public DynamicNameCampfireRecipe(ResourceLocation id, String p_250200_, CookingBookCategory p_251114_, Ingredient p_250340_, 
 			ItemStack p_250306_, float p_249577_, int p_250030_) {
-		super(p_250200_, p_251114_, p_250340_, p_250306_, p_249577_, p_250030_);
+		super(id, p_250200_, p_251114_, p_250340_, p_250306_, p_249577_, p_250030_);
 	}
 
 

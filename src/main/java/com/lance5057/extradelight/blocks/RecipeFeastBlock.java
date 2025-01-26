@@ -15,7 +15,6 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -92,7 +91,7 @@ public class RecipeFeastBlock extends Block {
 		return SHAPES[1];
 	}
 
-	public Optional<RecipeHolder<FeastRecipe>> matchRecipe(Level level, ItemStack... itemstack) {
+	public Optional<FeastRecipe> matchRecipe(Level level, ItemStack... itemstack) {
 		if (level != null) {
 			return level.getServer().getRecipeManager().getRecipeFor(ExtraDelightRecipes.FEAST.get(),
 					new SimpleContainer(itemstack), level);
@@ -125,12 +124,12 @@ public class RecipeFeastBlock extends Block {
 		}
 
 		ItemStack heldStack = player.getItemInHand(hand);
-		Optional<RecipeHolder<FeastRecipe>> r = level.getRecipeManager().getRecipeFor(ExtraDelightRecipes.FEAST.get(),
+		Optional<FeastRecipe> r = level.getRecipeManager().getRecipeFor(ExtraDelightRecipes.FEAST.get(),
 				new SimpleContainer(heldStack, new ItemStack(this.asItem())), level);
 
 		if (r.isPresent()) {
 			if (servings > 0) {
-				ItemStack result = r.get().value().getResultItem(player.level().registryAccess()).copy();
+				ItemStack result = r.get().getResultItem(player.level().registryAccess()).copy();
 				level.setBlock(pos, state.setValue(getServingsProperty(), servings - 1), 3);
 				if (!player.getAbilities().instabuild) {
 					if (heldStack.isDamageableItem())

@@ -1,6 +1,6 @@
 package com.lance5057.extradelight.displays.knife;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.joml.Quaternionf;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -50,7 +50,7 @@ public class KnifeBlockRenderer implements BlockEntityRenderer<KnifeBlockEntity>
 
 	private void renderItem(int slot, KnifeBlockEntity pBlockEntity, PoseStack pPoseStack,
 			MultiBufferSource pBufferSource, int pPackedLight, int pPackedOverlay, ItemRenderer itemRenderer,
-			@NotNull IItemHandler r, Direction dir, float x, float y, float z, float rx, float ry, float rz) {
+			@Nonnull IItemHandler r, Direction dir, float x, float y, float z, float rx, float ry, float rz) {
 		pPoseStack.pushPose();
 		ItemStack item = r.getStackInSlot(slot);
 

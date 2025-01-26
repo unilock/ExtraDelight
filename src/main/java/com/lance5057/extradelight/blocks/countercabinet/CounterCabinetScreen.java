@@ -6,7 +6,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.Renderable;
-import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -15,9 +14,7 @@ import net.minecraft.world.entity.player.Inventory;
 public class CounterCabinetScreen extends AbstractContainerScreen<CounterCabinetMenu> {
 	private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(ExtraDelight.MOD_ID,
 			"textures/gui/display.png");
-	private static final WidgetSprites TAB_BUTTON = new WidgetSprites(
-			new ResourceLocation(ExtraDelight.MOD_ID, "settings"),
-			new ResourceLocation(ExtraDelight.MOD_ID, "settings"));
+	private static final ResourceLocation TAB_BUTTON = new ResourceLocation(ExtraDelight.MOD_ID, "settings");
 
 	Renderable r;
 	boolean tab = true;
@@ -30,7 +27,7 @@ public class CounterCabinetScreen extends AbstractContainerScreen<CounterCabinet
 	@Override
 	public void init() {
 		super.init();
-		this.addRenderableWidget(new ImageButton(this.leftPos - 24, this.topPos, 24, 24, TAB_BUTTON, (button) -> {
+		this.addRenderableWidget(new ImageButton(this.leftPos - 24, this.topPos, 24, 24, 0, 0, TAB_BUTTON, (button) -> {
 			this.switchTabs();
 		}));
 	}
