@@ -28,7 +28,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.IPlantable;
+import net.minecraftforge.common.IPlantable;
 
 public class CornTop extends CropBlock {
 	public static final int MAX_AGE = 3;
@@ -86,10 +86,10 @@ public class CornTop extends CropBlock {
 			int i = this.getAge(pState);
 			if (i < this.getMaxAge()) {
 				float f = getGrowthSpeed(this, pLevel, pPos);
-				if (net.neoforged.neoforge.common.CommonHooks.onCropsGrowPre(pLevel, pPos, pState,
+				if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState,
 						pRandom.nextInt((int) (25.0F / f) + 1) == 0)) {
 					pLevel.setBlock(pPos, this.getStateForAge(i + 1), 2);
-					net.neoforged.neoforge.common.CommonHooks.onCropsGrowPost(pLevel, pPos, pState);
+					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
 				}
 			}
 		}

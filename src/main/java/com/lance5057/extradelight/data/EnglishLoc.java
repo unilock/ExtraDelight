@@ -6,7 +6,7 @@ import com.lance5057.extradelight.TranslatableKeys;
 import com.lance5057.extradelight.aesthetics.AestheticBlocks;
 
 import net.minecraft.data.PackOutput;
-import net.neoforged.neoforge.common.data.LanguageProvider;
+import net.minecraftforge.common.data.LanguageProvider;
 
 public class EnglishLoc extends LanguageProvider {
 

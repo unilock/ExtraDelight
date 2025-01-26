@@ -35,7 +35,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.IPlantable;
+import net.minecraftforge.common.IPlantable;
 
 public class CornBottom extends CropBlock {
 	public static final int MAX_AGE = 3;
@@ -100,10 +100,10 @@ public class CornBottom extends CropBlock {
 				int i = this.getAge(pState);
 				if (i < this.getMaxAge()) {
 					float f = getGrowthSpeed(this, pLevel, pPos);
-					if (net.neoforged.neoforge.common.CommonHooks.onCropsGrowPre(pLevel, pPos, pState,
+					if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState,
 							pRandom.nextInt((int) (25.0F / f) + 1) == 0)) {
 						this.growCrops(pLevel, pPos, pState);
-						net.neoforged.neoforge.common.CommonHooks.onCropsGrowPost(pLevel, pPos, pState);
+						net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
 					}
 				}
 			}

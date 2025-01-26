@@ -20,8 +20,8 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.util.RecipeMatcher;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
+import net.minecraftforge.common.util.RecipeMatcher;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 public class OvenRecipe implements Recipe<RecipeWrapper> {
 	public static final int INPUT_SLOTS = 9;

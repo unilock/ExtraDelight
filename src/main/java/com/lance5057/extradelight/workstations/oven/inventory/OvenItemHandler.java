@@ -5,7 +5,7 @@ import javax.annotation.Nullable;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 public class OvenItemHandler implements IItemHandler {
 	private static final int SLOTS_INPUT = 9;

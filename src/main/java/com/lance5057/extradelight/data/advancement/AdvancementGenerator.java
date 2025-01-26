@@ -22,11 +22,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.neoforge.common.data.AdvancementProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.data.ForgeAdvancementProvider;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
-public class AdvancementGenerator implements AdvancementProvider.AdvancementGenerator {
+public class AdvancementGenerator implements ForgeAdvancementProvider.AdvancementGenerator {
 //	private final DataGenerator dataGenerator;
 
 //	private Advancement start;
