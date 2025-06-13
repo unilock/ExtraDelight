@@ -20,13 +20,12 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class CandyBowlEntity extends BlockEntity {
 	public static final String TAG = "inv";
 
-	private final LazyOptional<IItemHandlerModifiable> handler = LazyOptional.of(this::createHandler);
+	private final LazyOptional<ItemStackHandler> handler = LazyOptional.of(this::createHandler);
 	public final static int NUM_SLOTS = 9;
 
 	public CandyBowlEntity(BlockPos pPos, BlockState pBlockState) {
@@ -47,7 +46,7 @@ public class CandyBowlEntity extends BlockEntity {
 		return super.getCapability(cap, side);
 	}
 
-	private IItemHandlerModifiable createHandler() {
+	private ItemStackHandler createHandler() {
 		return new ItemStackHandler(NUM_SLOTS) {
 
 			@Override

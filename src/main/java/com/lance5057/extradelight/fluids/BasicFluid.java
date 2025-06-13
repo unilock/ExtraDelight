@@ -76,7 +76,7 @@ public class BasicFluid extends FluidType {
 			}
 
 			@Override
-			public @NotNull Vector3f modifyFogColor(Camera camera, float partialTick, ClientLevel level,
+			public @Nonnull Vector3f modifyFogColor(Camera camera, float partialTick, ClientLevel level,
 					int renderDistance, float darkenWorldAmount, Vector3f fluidFogColor) {
 				int color = this.getTintColor();
 				return new Vector3f((color >> 16 & 0xFF) / 255F, (color >> 8 & 0xFF) / 255F, (color & 0xFF) / 255F);

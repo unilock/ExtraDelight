@@ -6,7 +6,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.core.Direction;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import com.lance5057.extradelight.ExtraDelightBlockEntities;
 import com.lance5057.extradelight.ExtraDelightRecipes;
@@ -35,7 +35,7 @@ import net.minecraftforge.items.ItemStackHandler;
 public class DryingRackBlockEntity extends BlockEntity {
 	public static final String TAG = "inv";
 
-	private final LazyOptional<IItemHandlerModifiable> handler = LazyOptional.of(this::createHandler);
+	private final LazyOptional<ItemStackHandler> handler = LazyOptional.of(this::createHandler);
 	public static final int NUM_SLOTS = 8;
 	// private final NonNullList<ItemStack> items = NonNullList.withSize(4,
 	// ItemStack.EMPTY);
@@ -67,8 +67,8 @@ public class DryingRackBlockEntity extends BlockEntity {
 			}
 
 			@Override
-			@NotNull
-			public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+			@Nonnull
+			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
 
 				Optional<DryingRackRecipe> r = this.getBlockEntity().matchRecipe(stack);
 				if (r.isPresent()) {
@@ -84,7 +84,7 @@ public class DryingRackBlockEntity extends BlockEntity {
 			}
 
 			@Override
-			@NotNull
+			@Nonnull
 			public ItemStack extractItem(int slot, int amount, boolean simulate) {
 				if (this.getBlockEntity().cookingProgress[slot] >= this.getBlockEntity().cookingTime[slot]) {
 					if (this.getBlockEntity().results[slot].isEmpty()) {
@@ -97,7 +97,7 @@ public class DryingRackBlockEntity extends BlockEntity {
 			}
 
 			@Override
-			public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+			public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
 				return this.getBlockEntity().matchRecipe(stack).isPresent();
 			}
 

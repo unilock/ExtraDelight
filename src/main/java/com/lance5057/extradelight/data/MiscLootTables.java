@@ -2,7 +2,7 @@ package com.lance5057.extradelight.data;
 
 import java.util.function.BiConsumer;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import com.lance5057.extradelight.ExtraDelight;
 import com.lance5057.extradelight.ExtraDelightItems;
@@ -46,19 +46,19 @@ public class MiscLootTables implements LootTableSubProvider {
 //						.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, 3))));
 	}
 
-	@NotNull
+	@Nonnull
 	public static LootPool.Builder createPoolWithItem(Item item, int count) {
 		return LootPool.lootPool().add(LootItem.lootTableItem(item))
 				.apply(SetItemCountFunction.setCount(ConstantValue.exactly(count)));
 	}
 
-	@NotNull
+	@Nonnull
 	public static LootPool.Builder createPoolWithItem(Item item, int min, int max) {
 		return LootPool.lootPool().add(LootItem.lootTableItem(item))
 				.apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max)));
 	}
 
-	@NotNull
+	@Nonnull
 	public static LootPool.Builder createPoolWithItem(Item item) {
 		return LootPool.lootPool().add(LootItem.lootTableItem(item));
 	}

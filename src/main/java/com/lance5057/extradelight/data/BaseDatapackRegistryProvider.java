@@ -23,7 +23,7 @@ import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.common.world.StructureModifier;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public abstract class BaseDatapackRegistryProvider extends DatapackBuiltinEntriesProvider {
 
@@ -34,7 +34,7 @@ public abstract class BaseDatapackRegistryProvider extends DatapackBuiltinEntrie
         this.modid = modid;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getName() {
         return "Datapack registries: " + modid;

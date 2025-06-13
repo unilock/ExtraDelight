@@ -22,7 +22,7 @@ import net.minecraftforge.items.ItemStackHandler;
 public class WreathEntity extends BlockEntity {
 
 	public static final String TAG = "inv";
-	private final LazyOptional<IItemHandlerModifiable> handler = LazyOptional.of(this::createHandler);
+	private final LazyOptional<ItemStackHandler> handler = LazyOptional.of(this::createHandler);
 	public static final int NUM_SLOTS = 8;
 
 	public WreathEntity(BlockPos pPos, BlockState pBlockState) {

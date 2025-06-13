@@ -21,7 +21,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class FoodDisplayEntity extends BlockEntity {
 
-	private final LazyOptional<IItemHandlerModifiable> handler = LazyOptional.of(this::createHandler);
+	private final LazyOptional<ItemStackHandler> handler = LazyOptional.of(this::createHandler);
 	public static final String TAG = "inv";
 
 	public static final int NUM_SLOTS = 9;
@@ -46,7 +46,7 @@ public class FoodDisplayEntity extends BlockEntity {
 		return super.getCapability(cap, side);
 	}
 
-	private IItemHandlerModifiable createHandler() {
+	private ItemStackHandler createHandler() {
 		return new ItemStackHandler(NUM_SLOTS) {
 
 			@Override

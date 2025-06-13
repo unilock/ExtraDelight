@@ -1,6 +1,8 @@
 package com.lance5057.extradelight.workstations.mixingbowl;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import org.joml.Quaternionf;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -27,7 +29,8 @@ public class MixingBowlRenderer implements BlockEntityRenderer<MixingBowlBlockEn
 	public void render(MixingBowlBlockEntity pBlockEntity, float pPartialTick, PoseStack pPoseStack,
 			MultiBufferSource pBufferSource, int pPackedLight, int pPackedOverlay) {
 		ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-		IItemHandler inv = pBlockEntity.getItemHandler();
+		IItemHandler inv = pBlockEntity.getCapability(
+				ForgeCapabilities.ITEM_HANDLER).orElseGet(pBlockEntity::createHandler);
 
 		renderCircle(pBlockEntity, pPoseStack, pBufferSource, pPackedLight, pPackedOverlay, itemRenderer, inv, 0, 35,
 				0.20f, 0, 7);
@@ -63,7 +66,7 @@ public class MixingBowlRenderer implements BlockEntityRenderer<MixingBowlBlockEn
 	}
 
 	private void renderCircle(MixingBowlBlockEntity pBlockEntity, PoseStack pPoseStack, MultiBufferSource pBufferSource,
-			int pPackedLight, int pPackedOverlay, ItemRenderer itemRenderer, @NotNull IItemHandler inv,
+			int pPackedLight, int pPackedOverlay, ItemRenderer itemRenderer, @Nonnull IItemHandler inv,
 			float rotYoffset, float rotX, float transX, int start, int stop) {
 		for (int i = start; i <= stop; i++) {
 			ItemStack item = inv.getStackInSlot(i);
@@ -92,7 +95,7 @@ public class MixingBowlRenderer implements BlockEntityRenderer<MixingBowlBlockEn
 	}
 
 	private void renderStack(MixingBowlBlockEntity pBlockEntity, PoseStack pPoseStack, MultiBufferSource pBufferSource,
-			int pPackedLight, int pPackedOverlay, ItemRenderer itemRenderer, @NotNull IItemHandler inv, int start,
+			int pPackedLight, int pPackedOverlay, ItemRenderer itemRenderer, @Nonnull IItemHandler inv, int start,
 			int stop) {
 		for (int i = start; i <= stop; i++) {
 			ItemStack item = inv.getStackInSlot(i);

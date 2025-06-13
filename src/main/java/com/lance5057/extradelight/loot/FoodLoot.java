@@ -30,7 +30,7 @@ public class FoodLoot extends LootModifier {
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	protected ObjectArrayList<ItemStack> doApply(final ObjectArrayList<ItemStack> generatedLoot,
 			final LootContext context) {
 		LootTable extraTable = context.getResolver().getLootTable(lootTableID);

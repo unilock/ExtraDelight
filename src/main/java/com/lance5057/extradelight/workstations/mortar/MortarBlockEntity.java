@@ -40,7 +40,7 @@ public class MortarBlockEntity extends SyncedBlockEntity {
 	public static final String TAG = "inv";
 
 	private final ItemStackHandler items = createHandler();
-	private final LazyOptional<IItemHandlerModifiable> itemHandler = LazyOptional.of(this::createHandler);
+	private final LazyOptional<ItemStackHandler> itemHandler = LazyOptional.of(this::createHandler);
 	public static final int NUM_SLOTS = 1;
 
 	public MortarBlockEntity(BlockPos pPos, BlockState pState) {

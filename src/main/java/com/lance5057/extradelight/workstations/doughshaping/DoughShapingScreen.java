@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.lance5057.extradelight.workstations.doughshaping.recipes.DoughShapingRecipe;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -13,7 +14,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -58,7 +58,7 @@ public class DoughShapingScreen extends AbstractContainerScreen<DoughShapingMenu
 	        p_283115_.blit(BG_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
 	        int k = (int)(41.0F * this.scrollOffs);
 	        ResourceLocation resourcelocation = this.isScrollBarActive() ? SCROLLER_SPRITE : SCROLLER_DISABLED_SPRITE;
-	        p_283115_.blitSprite(resourcelocation, i + 119, j + 15 + k, 12, 15);
+			p_283115_.blitSprite(resourcelocation, i + 119, j + 15 + k, 12, 15);
 	        int l = this.leftPos + 52;
 	        int i1 = this.topPos + 14;
 	        int j1 = this.startIndex + 12;
@@ -73,14 +73,14 @@ public class DoughShapingScreen extends AbstractContainerScreen<DoughShapingMenu
 	            int i = this.leftPos + 52;
 	            int j = this.topPos + 14;
 	            int k = this.startIndex + 12;
-	            List<RecipeHolder<DoughShapingRecipe>> list = this.menu.getRecipes();
+	            List<DoughShapingRecipe> list = this.menu.getRecipes();
 
 	            for(int l = this.startIndex; l < k && l < this.menu.getNumRecipes(); ++l) {
 	                int i1 = l - this.startIndex;
 	                int j1 = i + i1 % 4 * 16;
 	                int k1 = j + i1 / 4 * 18 + 2;
 	                if (p_283157_ >= j1 && p_283157_ < j1 + 16 && p_282258_ >= k1 && p_282258_ < k1 + 18) {
-	                    p_282396_.renderTooltip(this.font, list.get(l).value().getResultItem(this.minecraft.level.registryAccess()), p_283157_, p_282258_);
+	                    p_282396_.renderTooltip(this.font, list.get(l).getResultItem(this.minecraft.level.registryAccess()), p_283157_, p_282258_);
 	                }
 	            }
 	        }
@@ -106,14 +106,14 @@ public class DoughShapingScreen extends AbstractContainerScreen<DoughShapingMenu
 	    }
 
 	    private void renderRecipes(GuiGraphics p_281999_, int p_282658_, int p_282563_, int p_283352_) {
-	        List<RecipeHolder<DoughShapingRecipe>> list = this.menu.getRecipes();
+	        List<DoughShapingRecipe> list = this.menu.getRecipes();
 
 	        for(int i = this.startIndex; i < p_283352_ && i < this.menu.getNumRecipes(); ++i) {
 	            int j = i - this.startIndex;
 	            int k = p_282658_ + j % 4 * 16;
 	            int l = j / 4;
 	            int i1 = p_282563_ + l * 18 + 2;
-	            p_281999_.renderItem(list.get(i).value().getResultItem(this.minecraft.level.registryAccess()), k, i1);
+	            p_281999_.renderItem(list.get(i).getResultItem(this.minecraft.level.registryAccess()), k, i1);
 	        }
 	    }
 
@@ -160,17 +160,17 @@ public class DoughShapingScreen extends AbstractContainerScreen<DoughShapingMenu
 	        }
 	    }
 
-	    @Override
-	    public boolean mouseScrolled(double p_99314_, double p_99315_, double p_99316_, double p_295672_) {
-	        if (this.isScrollBarActive()) {
-	            int i = this.getOffscreenRows();
-	            float f = (float)p_295672_ / (float)i;
-	            this.scrollOffs = Mth.clamp(this.scrollOffs - f, 0.0F, 1.0F);
-	            this.startIndex = (int)((double)(this.scrollOffs * (float)i) + 0.5) * 4;
-	        }
-
-	        return true;
-	    }
+		@Override
+		public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+			if (this.isScrollBarActive()) {
+				int i = this.getOffscreenRows();
+				float f = (float)delta / (float)i;
+				this.scrollOffs = Mth.clamp(this.scrollOffs - f, 0.0F, 1.0F);
+				this.startIndex = (int)((double)(this.scrollOffs * (float)i) + 0.5) * 4;
+			}
+	
+			return true;
+		}
 
 	    private boolean isScrollBarActive() {
 	        return this.displayRecipes && this.menu.getNumRecipes() > 12;

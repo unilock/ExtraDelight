@@ -32,7 +32,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.DifferenceIngredient;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import vectorwing.farmersdelight.common.registry.ModItems;
 import vectorwing.farmersdelight.common.tag.ForgeTags;
 import vectorwing.farmersdelight.data.builder.CookingPotRecipeBuilder;
@@ -621,7 +621,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 				ExtraDelightItems.SUGAR_COOKIE_EMERALD.get(), consumer, "sugar_cookie_emerald");
 	}
 
-	private void vanillaCooking(Ingredient of, @NotNull Item item, Consumer<FinishedRecipe> consumer, String name) {
+	private void vanillaCooking(Ingredient of, @Nonnull Item item, Consumer<FinishedRecipe> consumer, String name) {
 		SimpleCookingRecipeBuilder.campfireCooking(of, RecipeCategory.FOOD, item, MEDIUM_EXP, CAMPFIRE_COOKING)
 				.unlockedBy(getName(), InventoryChangeTrigger.TriggerInstance.hasItems(item))
 				.save(consumer, EDLoc("campfire/" + name + "_fire"));
@@ -633,7 +633,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 				.save(consumer, EDLoc("smoking/" + name + "_smoke"));
 	}
 
-//	private void dynamicCooking(Ingredient of, @NotNull Item item, Consumer<FinishedRecipe> consumer, String name) {
+//	private void dynamicCooking(Ingredient of, @Nonnull Item item, Consumer<FinishedRecipe> consumer, String name) {
 //		DynamicNameSmeltingRecipeBuilder.campfireCooking(of, item, MEDIUM_EXP, NORMAL_COOKING)
 //				.unlockedBy(getName(), InventoryChangeTrigger.TriggerInstance.hasItems(item))
 //				.save(consumer, EDLoc("campfire/" + name + "_fire"));
@@ -1111,7 +1111,7 @@ public class Recipes extends RecipeProvider implements IConditionBuilder {
 				consumer, "beet_mint_salad");
 	}
 
-	private void mixing(@NotNull ItemStack output, int grind, ItemStack container, Ingredient[] ingredients,
+	private void mixing(@Nonnull ItemStack output, int grind, ItemStack container, Ingredient[] ingredients,
 			Consumer<FinishedRecipe> consumer, String rc) {
 		MixingBowlRecipeBuilder b = MixingBowlRecipeBuilder.stir(output, grind, container);
 

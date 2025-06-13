@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 
 import net.minecraft.core.Direction;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
-import org.jetbrains.annotations.NotNull;
 
 import com.lance5057.extradelight.ExtraDelightBlockEntities;
 import com.lance5057.extradelight.ExtraDelightRecipes;
@@ -40,7 +39,7 @@ import net.minecraftforge.items.ItemStackHandler;
 public class MixingBowlBlockEntity extends BlockEntity {
 	public static final String INV_TAG = "inv";
 
-	private final LazyOptional<IItemHandlerModifiable> handler = LazyOptional.of(this::createHandler);
+	private final LazyOptional<ItemStackHandler> handler = LazyOptional.of(this::createHandler);
 	public static final int NUM_SLOTS = 33;
 	
 	public static final String FLUID_TAG = "tank";
@@ -70,7 +69,7 @@ public class MixingBowlBlockEntity extends BlockEntity {
 		return super.getCapability(cap, side);
 	}
 
-	private IItemHandlerModifiable createHandler() {
+	public ItemStackHandler createHandler() {
 		return new ItemStackHandler(33) {
 			@Override
 			protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
@@ -332,7 +331,7 @@ public class MixingBowlBlockEntity extends BlockEntity {
 
 	}
 
-	private void dropContainers(@NotNull IItemHandlerModifiable inv, Player player) {
+	private void dropContainers(@Nonnull ItemStackHandler inv, Player player) {
 		for (int i = 0; i < 32; i++) {
 			player.addItem(inv.getStackInSlot(i).getCraftingRemainingItem());
 

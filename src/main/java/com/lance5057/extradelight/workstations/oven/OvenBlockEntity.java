@@ -60,8 +60,8 @@ public class OvenBlockEntity extends SyncedBlockEntity
 	public static final int INVENTORY_SIZE = OUTPUT_SLOT + 1;
 	protected final ContainerData OvenData;
 	private final ItemStackHandler inventory;
-	public final LazyOptional<IItemHandler> inputHandler;
-	public final LazyOptional<IItemHandler> outputHandler;
+	public final LazyOptional<OvenItemHandler> inputHandler;
+	public final LazyOptional<OvenItemHandler> outputHandler;
 	private final Object2IntOpenHashMap<ResourceLocation> usedRecipeTracker;
 	private int cookTime;
 	private int cookTimeTotal;

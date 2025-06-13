@@ -1,6 +1,5 @@
 package com.lance5057.extradelight;
 
-import net.minecraft.core.Direction;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.fluids.capability.templates.FluidHandlerItemStack;

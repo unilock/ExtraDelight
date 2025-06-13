@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import com.lance5057.extradelight.ExtraDelightBlocks;
 import com.lance5057.extradelight.ExtraDelightItems;
@@ -357,7 +357,7 @@ public class BlockLootTables extends BlockLootSubProvider {
 	}
 
 	@Override
-	protected @NotNull Iterable<Block> getKnownBlocks() {
+	protected @Nonnull Iterable<Block> getKnownBlocks() {
 		Collection<Block> l = new ArrayList<Block>();
 		l.addAll(ExtraDelightBlocks.BLOCKS.getEntries().stream().map(r -> r.get()).toList());
 		l.addAll(AestheticBlocks.BLOCKS.getEntries().stream().map(r -> r.get()).toList());

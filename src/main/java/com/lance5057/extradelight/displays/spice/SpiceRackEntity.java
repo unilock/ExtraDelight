@@ -24,7 +24,7 @@ public class SpiceRackEntity extends BlockEntity {
 
 	public static final String TAG = "inv";
 
-	private final LazyOptional<IItemHandlerModifiable> handler = LazyOptional.of(this::createHandler);
+	private final LazyOptional<ItemStackHandler> handler = LazyOptional.of(this::createHandler);
 	public static final int NUM_SLOTS = 4;
 
 	public SpiceRackEntity(BlockPos pPos, BlockState pBlockState) {
