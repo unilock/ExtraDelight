@@ -3,6 +3,7 @@ package com.lance5057.extradelight.workstations.oven;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
@@ -32,15 +33,16 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.RecipeCraftingHolder;
+import net.minecraft.world.inventory.RecipeHolder;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
@@ -51,15 +53,15 @@ import vectorwing.farmersdelight.common.registry.ModParticleTypes;
 import vectorwing.farmersdelight.common.utility.ItemUtils;
 
 public class OvenBlockEntity extends SyncedBlockEntity
-		implements MenuProvider, HeatableBlockEntity, Nameable, RecipeCraftingHolder {
+		implements MenuProvider, HeatableBlockEntity, Nameable, RecipeHolder {
 	public static final int MEAL_DISPLAY_SLOT = 9;
 	public static final int CONTAINER_SLOT = 10;
 	public static final int OUTPUT_SLOT = 11;
 	public static final int INVENTORY_SIZE = OUTPUT_SLOT + 1;
 	protected final ContainerData OvenData;
 	private final ItemStackHandler inventory;
-	public final IItemHandler inputHandler;
-	public final IItemHandler outputHandler;
+	public final LazyOptional<IItemHandler> inputHandler;
+	public final LazyOptional<IItemHandler> outputHandler;
 	private final Object2IntOpenHashMap<ResourceLocation> usedRecipeTracker;
 	private int cookTime;
 	private int cookTimeTotal;
@@ -71,8 +73,8 @@ public class OvenBlockEntity extends SyncedBlockEntity
 	public OvenBlockEntity(BlockPos pos, BlockState state) {
 		super(ExtraDelightBlockEntities.OVEN.get(), pos, state);
 		this.inventory = createHandler();
-		this.inputHandler = new OvenItemHandler(inventory, Direction.UP);
-		this.outputHandler = new OvenItemHandler(inventory, Direction.DOWN);
+		this.inputHandler = LazyOptional.of(() -> new OvenItemHandler(inventory, Direction.UP));
+		this.outputHandler = LazyOptional.of(() -> new OvenItemHandler(inventory, Direction.DOWN));
 		this.mealContainerStack = ItemStack.EMPTY;
 		this.OvenData = createIntArray();
 		this.usedRecipeTracker = new Object2IntOpenHashMap<>();
@@ -95,17 +97,6 @@ public class OvenBlockEntity extends SyncedBlockEntity
 		}
 
 		return ItemStack.EMPTY;
-	}
-
-	@SubscribeEvent
-	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-		event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ExtraDelightBlockEntities.OVEN.get(),
-				(be, context) -> {
-					if (context == Direction.UP) {
-						return be.inputHandler;
-					}
-					return be.outputHandler;
-				});
 	}
 
 //	public static void takeServingFromItem(ItemStack OvenStack) {
@@ -145,8 +136,8 @@ public class OvenBlockEntity extends SyncedBlockEntity
 		boolean didInventoryChange = false;
 
 		if (isHeated && Oven.hasInput()) {
-			Optional<RecipeHolder<OvenRecipe>> recipe = Oven.getMatchingRecipe(new RecipeWrapper(Oven.inventory));
-			if (recipe.isPresent() && Oven.canCook(recipe.get().value())) {
+			Optional<OvenRecipe> recipe = Oven.getMatchingRecipe(new RecipeWrapper(Oven.inventory));
+			if (recipe.isPresent() && Oven.canCook(recipe.get())) {
 				didInventoryChange = Oven.processCooking(recipe.get(), Oven);
 			} else {
 				Oven.cookTime = 0;
@@ -256,26 +247,26 @@ public class OvenBlockEntity extends SyncedBlockEntity
 		return compound;
 	}
 
-	private Optional<RecipeHolder<OvenRecipe>> getMatchingRecipe(RecipeWrapper inventoryWrapper) {
+	private Optional<OvenRecipe> getMatchingRecipe(RecipeWrapper inventoryWrapper) {
 		if (level == null)
 			return Optional.empty();
 
 		if (lastRecipeID != null) {
-			RecipeHolder<OvenRecipe> recipe = ((RecipeManagerAccessor) level.getRecipeManager())
+			Recipe<RecipeWrapper> recipe = ((RecipeManagerAccessor) level.getRecipeManager())
 					.getRecipeMap(ExtraDelightRecipes.OVEN.get()).get(lastRecipeID);
-			if (recipe.value().matches(inventoryWrapper, level)) {
-				return Optional.of(recipe);
+			if (recipe.matches(inventoryWrapper, level)) {
+				return Optional.of((OvenRecipe) recipe);
 			}
-			if (ItemStack.isSameItem(recipe.value().getResultItem(this.level.registryAccess()), getMeal())) {
+			if (ItemStack.isSameItem(recipe.getResultItem(this.level.registryAccess()), getMeal())) {
 				return Optional.empty();
 			}
 		}
 
 		if (checkNewRecipe) {
-			Optional<RecipeHolder<OvenRecipe>> recipe = level.getRecipeManager()
+			Optional<OvenRecipe> recipe = level.getRecipeManager()
 					.getRecipeFor(ExtraDelightRecipes.OVEN.get(), inventoryWrapper, level);
 			if (recipe.isPresent()) {
-				ResourceLocation newRecipeID = recipe.get().id();
+				ResourceLocation newRecipeID = recipe.get().getId();
 				if (lastRecipeID != null && !lastRecipeID.equals(newRecipeID)) {
 					cookTime = 0;
 				}
@@ -332,19 +323,19 @@ public class OvenBlockEntity extends SyncedBlockEntity
 		}
 	}
 
-	private boolean processCooking(RecipeHolder<OvenRecipe> recipe, OvenBlockEntity oven) {
+	private boolean processCooking(OvenRecipe recipe, OvenBlockEntity oven) {
 		if (level == null)
 			return false;
 
 		++cookTime;
-		cookTimeTotal = recipe.value().getCookTime();
+		cookTimeTotal = recipe.getCookTime();
 		if (cookTime < cookTimeTotal) {
 			return false;
 		}
 
 		cookTime = 0;
-		mealContainerStack = recipe.value().getOutputContainer();
-		ItemStack resultStack = recipe.value().getResultItem(this.level.registryAccess());
+		mealContainerStack = recipe.getOutputContainer();
+		ItemStack resultStack = recipe.getResultItem(this.level.registryAccess());
 		ItemStack storedMealStack = inventory.getStackInSlot(MEAL_DISPLAY_SLOT);
 		if (storedMealStack.isEmpty()) {
 			inventory.setStackInSlot(MEAL_DISPLAY_SLOT, resultStack.copy());
@@ -371,33 +362,33 @@ public class OvenBlockEntity extends SyncedBlockEntity
 
 	@Nullable
 	@Override
-	public RecipeHolder<?> getRecipeUsed() {
+	public Recipe<?> getRecipeUsed() {
 		return null;
 	}
 
 	@Override
-	public void setRecipeUsed(@Nullable RecipeHolder<?> recipe) {
+	public void setRecipeUsed(@Nullable Recipe<?> recipe) {
 		if (recipe != null) {
-			ResourceLocation recipeID = recipe.id();
+			ResourceLocation recipeID = recipe.getId();
 			usedRecipeTracker.addTo(recipeID, 1);
 		}
 	}
 
 	@Override
 	public void awardUsedRecipes(Player player, List<ItemStack> items) {
-		List<RecipeHolder<?>> usedRecipes = getUsedRecipesAndPopExperience(player.level(), player.position());
+		List<Recipe<?>> usedRecipes = getUsedRecipesAndPopExperience(player.level(), player.position());
 		player.awardRecipes(usedRecipes);
 		usedRecipeTracker.clear();
 	}
 
-	public List<RecipeHolder<?>> getUsedRecipesAndPopExperience(Level level, Vec3 pos) {
-		List<RecipeHolder<?>> list = Lists.newArrayList();
+	public List<Recipe<?>> getUsedRecipesAndPopExperience(Level level, Vec3 pos) {
+		List<Recipe<?>> list = Lists.newArrayList();
 
 		for (Object2IntMap.Entry<ResourceLocation> entry : usedRecipeTracker.object2IntEntrySet()) {
 			level.getRecipeManager().byKey(entry.getKey()).ifPresent((recipe) -> {
 				list.add(recipe);
 				splitAndSpawnExperience((ServerLevel) level, pos, entry.getIntValue(),
-						((OvenRecipe) recipe.value()).getExperience());
+						((OvenRecipe) recipe).getExperience());
 			});
 		}
 
@@ -506,18 +497,18 @@ public class OvenBlockEntity extends SyncedBlockEntity
 		return new OvenMenu(id, player, this, OvenData);
 	}
 
-//	@Override
-//	@Nonnull
-//	public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-//		if (cap.equals(ForgeCapabilities.ITEM_HANDLER)) {
-//			if (side == null || side.equals(Direction.UP)) {
-//				return inputHandler.cast();
-//			} else {
-//				return outputHandler.cast();
-//			}
-//		}
-//		return super.getCapability(cap, side);
-//	}
+	@Override
+	@Nonnull
+	public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
+		if (cap.equals(ForgeCapabilities.ITEM_HANDLER)) {
+			if (side == null || side.equals(Direction.UP)) {
+				return inputHandler.cast();
+			} else {
+				return outputHandler.cast();
+			}
+		}
+		return super.getCapability(cap, side);
+	}
 
 	@Override
 	public void setRemoved() {

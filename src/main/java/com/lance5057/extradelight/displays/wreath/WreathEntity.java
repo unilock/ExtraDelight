@@ -1,25 +1,28 @@
 package com.lance5057.extradelight.displays.wreath;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.lance5057.extradelight.ExtraDelightBlockEntities;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.util.Lazy;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class WreathEntity extends BlockEntity {
 
 	public static final String TAG = "inv";
-//	private final LazyOptional<IItemHandlerModifiable> handler = LazyOptional.of(this::createHandler);
-	private final ItemStackHandler items = createHandler();
-	private final Lazy<IItemHandler> itemHandler = Lazy.of(() -> items);
+	private final LazyOptional<IItemHandlerModifiable> handler = LazyOptional.of(this::createHandler);
 	public static final int NUM_SLOTS = 8;
 
 	public WreathEntity(BlockPos pPos, BlockState pBlockState) {
@@ -32,19 +35,15 @@ public class WreathEntity extends BlockEntity {
 		return NUM_SLOTS;
 	}
 
-	public IItemHandler getItemHandler() {
-		return itemHandler.get();
+	@Nonnull
+	@Override
+	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+		if (side != Direction.DOWN)
+			if (cap == ForgeCapabilities.ITEM_HANDLER) {
+				return handler.cast();
+			}
+		return super.getCapability(cap, side);
 	}
-
-//	@Nonnull
-//	@Override
-//	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-//		if (side != Direction.DOWN)
-//			if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-//				return handler.cast();
-//			}
-//		return super.getCapability(cap, side);
-//	}
 
 	private ItemStackHandler createHandler() {
 		return new ItemStackHandler(NUM_SLOTS) {
@@ -106,13 +105,15 @@ public class WreathEntity extends BlockEntity {
 	}
 
 	void readNBT(CompoundTag nbt) {
-		if (nbt.contains(TAG)) {
-			items.deserializeNBT(nbt.getCompound(TAG));
-		}
+		final IItemHandler itemInteractionHandler = getCapability(ForgeCapabilities.ITEM_HANDLER)
+				.orElseGet(this::createHandler);
+		((ItemStackHandler) itemInteractionHandler).deserializeNBT(nbt.getCompound("inventory"));
 	}
 
 	CompoundTag writeNBT(CompoundTag tag) {
-		tag.put(TAG, items.serializeNBT());
+		IItemHandler itemInteractionHandler = getCapability(ForgeCapabilities.ITEM_HANDLER)
+				.orElseGet(this::createHandler);
+		tag.put("inventory", ((ItemStackHandler) itemInteractionHandler).serializeNBT());
 		return tag;
 	}
 

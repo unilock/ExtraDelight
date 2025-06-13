@@ -23,7 +23,6 @@ import net.minecraft.world.inventory.ResultContainer;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 
 public class DoughShapingMenu extends AbstractContainerMenu {
@@ -37,7 +36,7 @@ public class DoughShapingMenu extends AbstractContainerMenu {
 	/** The index of the selected recipe in the GUI. */
 	private final DataSlot selectedRecipeIndex = DataSlot.standalone();
 	private final Level level;
-	private List<RecipeHolder<DoughShapingRecipe>> recipes = Lists.newArrayList();
+	private List<DoughShapingRecipe> recipes = Lists.newArrayList();
 	/**
 	 * The {@linkplain net.minecraft.world.item.ItemStack} set in the input slot by
 	 * the player.
@@ -131,7 +130,7 @@ public class DoughShapingMenu extends AbstractContainerMenu {
 		return this.selectedRecipeIndex.get();
 	}
 
-	public List<RecipeHolder<DoughShapingRecipe>> getRecipes() {
+	public List<DoughShapingRecipe> getRecipes() {
 		return this.recipes;
 	}
 
@@ -192,9 +191,9 @@ public class DoughShapingMenu extends AbstractContainerMenu {
 
 	void setupResultSlot() {
 		if (!this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
-			RecipeHolder<DoughShapingRecipe> DoughShapingrecipe = this.recipes.get(this.selectedRecipeIndex.get());
+			DoughShapingRecipe DoughShapingrecipe = this.recipes.get(this.selectedRecipeIndex.get());
 			this.resultContainer.setRecipeUsed(DoughShapingrecipe);
-			this.resultSlot.set(DoughShapingrecipe.value().assemble(this.container, this.level.registryAccess()));
+			this.resultSlot.set(DoughShapingrecipe.assemble(this.container, this.level.registryAccess()));
 		} else {
 			this.resultSlot.set(ItemStack.EMPTY);
 		}

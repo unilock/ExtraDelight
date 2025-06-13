@@ -3,7 +3,7 @@ package com.lance5057.extradelight.workstations.dryingrack;
 import com.lance5057.extradelight.ExtraDelightRecipes;
 
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -14,14 +14,16 @@ import net.minecraft.world.level.Level;
 
 public class DryingRackRecipe implements Recipe<Container> {
 
+	protected final ResourceLocation id;
 	protected final String group;
 	protected final Ingredient ingredient;
 	protected final ItemStack result;
 	protected final float experience;
 	protected final int cookingTime;
 
-	public DryingRackRecipe(String pGroup, Ingredient pIngredient, ItemStack pResult, float pExperience,
-			int pCookingTime) {
+	public DryingRackRecipe(ResourceLocation pId, String pGroup, Ingredient pIngredient, ItemStack pResult,
+							float pExperience, int pCookingTime) {
+		this.id = pId;
 		this.group = pGroup;
 		this.ingredient = pIngredient;
 		this.result = pResult;
@@ -45,7 +47,7 @@ public class DryingRackRecipe implements Recipe<Container> {
 	}
 
 	@Override
-	public ItemStack assemble(Container p_44001_, RegistryAccess p_267165_) {
+	public ItemStack assemble(Container pContainer) {
 		return this.result.copy();
 	}
 
@@ -60,13 +62,19 @@ public class DryingRackRecipe implements Recipe<Container> {
 	}
 
 	@Override
-	public ItemStack getResultItem(RegistryAccess p_267052_) {
+	public ItemStack getResultItem() {
 		// TODO Auto-generated method stub
 		return result;
 	}
 
 	public int getCookingTime() {
 		return this.cookingTime;
+	}
+
+	@Override
+	public ResourceLocation getId() {
+		// TODO Auto-generated method stub
+		return id;
 	}
 
 	@Override
